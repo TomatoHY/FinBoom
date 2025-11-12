@@ -1,0 +1,66 @@
+{
+    "市场/宏观": {
+        "children": {
+            "股票": {
+                "children": {
+                    "价格/行情": true,
+                    "排行/列表": true
+                }
+            },
+            "宏观经济": {
+                "children": {
+                    "经济指标": true,
+                    "社会统计": true,
+                    "行业统计": true
+                }
+            },
+            "中债国债": {
+                "children": {
+                    "价格/行情": true,
+                    "衍生/计算": true
+                }
+            }
+        }
+    },
+    "个体实体": {
+        "children": {
+            "股票": {
+                "children": {
+                    "档案/静态信息": true,
+                    "价格/行情": true,
+                    "财报/基本面": true,
+                    "分析/情绪/预测": true,
+                    "衍生/计算": true
+                }
+            },
+            "外汇": {
+                "children": {
+                    "价格/行情": true,
+                    "衍生/计算": true
+                }
+            },
+            "期货/商品": {
+                "children": {
+                    "价格/行情": true,
+                    "衍生/计算": true
+                }
+            },
+            "指数": {
+                "children": {
+                    "价格/行情": true,
+                    "衍生/计算": true,
+                    "基本信息": true
+                }
+            }
+        }
+    },
+    "外部工具": {
+        "children":{
+            "interpreter": {
+                "children": {
+                    "python": true
+                }
+            }
+        }
+    }
+}

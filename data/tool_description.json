@@ -1,0 +1,2717 @@
+{
+    "get_stock_sse_deal_daily_value": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_sse_deal_daily_value",
+            "description": "【分类路径: 市场/宏观 > 股票 > 价格/行情】查询上海证券交易所(SSE)在特定交易日的股票成交概况。可用于获取单一交易日内，不同板块（如主板A、科创板）的关键指标（如市价总值、成交金额、平均市盈率等）。",
+            "parameters": {
+                "date": {
+                    "type": "string",
+                    "description": "要查询的交易日，格式为 'YYYYMMDD'。例如：'20240102'。重要提示：日期必须是2021年12月27日之后（含当天）的有效交易日。"
+                },
+                "row_label": {
+                    "type": "string",
+                    "description": "要查询的数据指标名称。",
+                    "enum": [
+                        "挂牌数",
+                        "市价总值",
+                        "流通市值",
+                        "成交金额",
+                        "成交量",
+                        "平均市盈率",
+                        "换手率",
+                        "流通换手率"
+                    ]
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的市场板块或项目名称。",
+                    "enum": [
+                        "股票",
+                        "主板A",
+                        "主板B",
+                        "科创板",
+                        "股票回购"
+                    ]
+                }
+            },
+            "returns": {
+                "type": "number",
+                "description": "返回查询到的具体数值（浮点数）。如果某个指标不适用（例如股票回购的平均市盈率），则可能返回NaN。"
+            },
+            "required": [
+                "date",
+                "row_label",
+                "column_label"
+            ]
+        }
+    },
+    "get_stock_individual_basic_info_xq_value": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_individual_basic_info_xq_value",
+            "description": "【分类路径: 个体实体 > 股票 > 档案/静态信息】查询A股公司的基本概况信息，如公司简介、主营业务、法人代表、注册地址等。此工具数据来源于雪球财经，提供的是公司的静态档案类信息。",
+            "parameters": {
+                "row_label": {
+                    "type": "string",
+                    "description": "要查询的公司信息项目名称。这是必须提供的参数。",
+                    "enum": [
+                        "org_name_cn",
+                        "org_short_name_cn",
+                        "main_operation_business",
+                        "operating_scope",
+                        "org_cn_introduction",
+                        "legal_representative",
+                        "general_manager",
+                        "secretary",
+                        "established_date",
+                        "reg_asset",
+                        "staff_num",
+                        "telephone",
+                        "email",
+                        "org_website",
+                        "reg_address_cn",
+                        "office_address_cn",
+                        "currency",
+                        "listed_date",
+                        "provincial_name",
+                        "actual_controller",
+                        "classi_name",
+                        "chairman",
+                        "issue_price",
+                        "affiliate_industry"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码，例如 '601127'。如果提供了 'code'，即使同时提供了 'name'，也会优先使用此代码。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文简称，例如 '赛力斯'。仅在未提供 'code' 参数时，此参数才会被用于查找股票代码。"
+                }
+            },
+            "returns": {
+                "description": "返回查询到的具体值。其类型多样，可能是字符串（如公司简介）、数字（如注册资本）或JSON对象（如行业信息）。"
+            },
+            "required": [
+                "row_label"
+            ]
+        }
+    },
+    "get_code_from_name": {
+        "type": "function",
+        "function": {
+            "name": "get_code_from_name",
+            "description": "【分类路径: 个体实体 > 股票 > 档案/静态信息】根据股票的中文或英文名称，查找其对应的股票代码。支持在A股、港股、美股市场或所有市场中进行搜索。",
+            "parameters": {
+                "name": {
+                    "type": "string",
+                    "description": "要查询的股票的完整或部分名称。例如：'贵州茅台', '腾讯', 'Apple'。"
+                },
+                "market": {
+                    "type": "string",
+                    "description": "指定搜索范围的股票市场。'a' 代表A股，'hk' 代表港股，'us' 代表美股。如果未提供此参数，默认为 'all'，将在所有市场中搜索。",
+                    "enum": [
+                        "a",
+                        "hk",
+                        "us",
+                        "all"
+                    ],
+                    "default": "all"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        }
+    },
+    "get_stock_hist_price_data": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_hist_price_data",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】(首选稳定接口) 获取单个A股指定日期的完整历史行情数据，如开盘价, 收盘价, 成交量等。支持不复权、前复权(qfq)和后复权(hfq)三种模式。用于查询价格相关信息。",
+            "parameters": {
+                "query_date": {
+                    "type": "string",
+                    "description": "要查询的具体日期，格式必须为 'YYYY-MM-DD'，例如 '2023-06-05'。"
+                },
+                "period": {
+                    "type": "string",
+                    "description": "数据周期，'daily' (日), 'weekly' (周), 'monthly' (月)。",
+                    "enum": [
+                        "daily",
+                        "weekly",
+                        "monthly"
+                    ]
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "下载数据范围的开始日期，格式 'YYYYMMDD'，例如 '20230101'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "下载数据范围的结束日期，格式 'YYYYMMDD'，例如 '20231231'。"
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' (不复权), 'qfq' (前复权), 'hfq' (后复权)。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票代码 (不带前缀), e.g., '000001'"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票名称, e.g., '平安银行'"
+                }
+            },
+            "required": [
+                "query_date",
+                "period",
+                "start_date",
+                "end_date",
+                "adjust"
+            ]
+        }
+    },
+    "get_stock_hist_price_data_tx": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_hist_price_data_tx",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】(备用接口) 从腾讯证券获取单个A股指定日期的完整历史行情数据，如开盘价、收盘价等。可作为 `get_stock_hist_price_data` 的备用数据源。支持不复权、前复权(qfq)和后复权(hfq)模式。",
+            "parameters": {
+                "query_date": {
+                    "type": "string",
+                    "description": "要查询的具体日期，格式必须为 'YYYY-MM-DD'，例如 '2023-10-27'。"
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "下载历史数据范围的开始日期，格式为 'YYYYMMDD'，例如 '20200101'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "下载历史数据范围的结束日期，格式为 'YYYYMMDD'，例如 '20231027'。"
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' (不复权), 'qfq' (前复权), 'hfq' (后复权)。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的唯一代码，必须带市场前缀，例如 'sz000001' 或 'sh600000'。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '平安银行'。"
+                }
+            },
+            "required": [
+                "query_date",
+                "start_date",
+                "end_date",
+                "adjust"
+            ]
+        }
+    },
+    "get_fx_spot_quote_value": {
+        "type": "function",
+        "function": {
+            "name": "get_fx_spot_quote_value",
+            "description": "【分类路径: 个体实体 > 外汇 > 价格/行情】查询外汇市场的实时即期报价。优先提供与人民币(CNY)的直接报价，并能自动计算常见非人民币货币对的交叉汇率（例如'USD/EUR'）。",
+            "parameters": {
+                "currency_pair": {
+                    "type": "string",
+                    "description": "要查询的货币对名称，格式为 'CUR1/CUR2'。例如 'USD/CNY', 'EUR/USD', 'CNY/THB' 等。"
+                },
+                "metric_name": {
+                    "type": "string",
+                    "description": "要查询的报价类型。",
+                    "enum": [
+                        "买报价",
+                        "卖报价"
+                    ]
+                }
+            },
+            "required": [
+                "currency_pair",
+                "metric_name"
+            ]
+        }
+    },
+    "get_monthly_avg_currency_rate": {
+        "type": "function",
+        "function": {
+            "name": "get_monthly_avg_currency_rate",
+            "description": "【分类路径: 个体实体 > 外汇 > 价格/行情】计算某种外币对人民币汇率中间价在指定时间段内的【月度算术平均值】。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "currency_name": {
+                        "type": "STRING",
+                        "description": "要查询的货币名称。例如：'美元', '欧元', '日元', '英镑' 等。"
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2022-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2023-12-31'。"
+                    }
+                },
+                "required": [
+                    "currency_name",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_rmb_central_parity_rate_change": {
+        "type": "function",
+        "function": {
+            "name": "get_rmb_central_parity_rate_change",
+            "description": "【分类路径: 个体实体 > 外汇 > 价格/行情】查询一种或多种外币对人民币汇率中间价在指定时间段内的【每日涨跌幅】。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2023-09-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2023-09-15'。"
+                    },
+                    "currencies": {
+                        "type": "ARRAY",
+                        "description": "一个包含一个或多个标准货币名称的列表，用于查询这些货币的日涨跌幅。例如：['美元', '欧元', '泰铢']。",
+                        "items": {
+                            "type": "STRING"
+                        }
+                    }
+                },
+                "required": [
+                    "start_date",
+                    "end_date",
+                    "currencies"
+                ]
+            }
+        }
+    },
+    "get_current_latest_value": {
+        "type": "function",
+        "function": {
+            "name": "get_current_latest_value",
+            "description": "【分类路径: 个体实体 > 外汇 > 价格/行情】获取一种基准货币(base)相对于另一种目标货币(currency)的最新报价信息。主要用于查询外汇汇率。",
+            "parameters": {
+                "base": {
+                    "type": "string",
+                    "description": "作为计算基准的货币的3字母代码。例如，在问题“1美元可以换多少日元？”中，基准货币 'base' 应该是 'USD'。"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "需要从返回结果中定位的目标货币的3字母代码。例如，在问题“1美元可以换多少日元？”中，目标货币 'currency' 应该是 'JPY'。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的具体数据指标的名称。对于汇率查询，应使用 'rates'。",
+                    "enum": [
+                        "rates",
+                        "date",
+                        "base"
+                    ]
+                },
+                "symbol": {
+                    "type": "string",
+                    "description": "(可选) 提供给API的一个或多个货币代码（用逗号分隔），用于限定API返回的数据范围。为节省资源，建议将其设置为与'currency'参数相同的值。"
+                }
+            },
+            "required": [
+                "base",
+                "currency",
+                "column_label"
+            ]
+        }
+    },
+    "get_currency_history_value": {
+        "type": "function",
+        "function": {
+            "name": "get_currency_history_value",
+            "description": "【分类路径: 个体实体 > 外汇 > 价格/行情】获取一种基准货币(base)相对于另一种目标货币(currency)在【特定历史日期】的收盘汇率信息。输出的汇率（rates）是 1 单位基准货币可以兑换多少目标货币。",
+            "parameters": {
+                "base": {
+                    "type": "string",
+                    "description": "作为计算基准的货币的3字母代码。例如 'USD'。在汇率计算中，它是分子（1 单位基准货币）。"
+                },
+                "date": {
+                    "type": "string",
+                    "description": "要查询的历史日期，格式必须是 'YYYY-MM-DD'。例如：'2023-02-03'。"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "需要查询其价格的目标货币的3字母代码。例如 'JPY'。在汇率计算中，它是分母（目标货币数量）。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的具体数据指标。对于历史汇率查询，应使用 'rates'。",
+                    "enum": [
+                        "rates",
+                        "date",
+                        "base"
+                    ]
+                }
+            },
+            "required": [
+                "base",
+                "date",
+                "currency",
+                "column_label"
+            ]
+        }
+    },
+    "convert_currency_amount": {
+        "type": "function",
+        "function": {
+            "name": "convert_currency_amount",
+            "description": "【分类路径: 个体实体 > 外汇 > 衍生/计算】将指定数量(amount)的一种货币(base_currency)换算成另一种货币(target_currency)的等值金额。主要用于具体的货币换算计算。",
+            "parameters": {
+                "base_currency": {
+                    "type": "string",
+                    "description": "要换算的起始货币或基础货币的3字母代码。例如，在问题“100美元能换多少日元？”中，'base_currency' 应该是 'USD'。"
+                },
+                "target_currency": {
+                    "type": "string",
+                    "description": "要换算成的目标货币的3字母代码。例如，在问题“100美元能换多少日元？”中，'target_currency' 应该是 'JPY'。"
+                },
+                "amount": {
+                    "type": "number",
+                    "description": "要换算的起始货币的数量。例如，在问题“100美元能换多少日元？”中，'amount' 应该是 100。"
+                }
+            },
+            "required": [
+                "base_currency",
+                "target_currency",
+                "amount"
+            ]
+        }
+    },
+    "get_stock_listing_date": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_listing_date",
+            "description": "【信息检索工具】查询单只A股股票的上市时间（listing date）。当需要获取某只股票自上市以来的全部历史数据时，应先使用此工具确定其上市日期作为开始时间。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "name": {
+                        "type": "STRING",
+                        "description": "(可选) 股票的中文名称。例如：'贵州茅台' 或 '万科A'。"
+                    },
+                    "code": {
+                        "type": "STRING",
+                        "description": "(可选) 股票的代码。例如：'600519' 或 '000002'。name 和 code 至少需要提供一个。"
+                    }
+                }
+            }
+        }
+    },
+    "get_stock_basic_info": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_basic_info",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】获取股票信息。对于A股，获取基础信息字段；对于美股，通过 AkShare 财务报表接口获取其最新年度或季度资产负债表中的**详细行项目**数值。返回的是一个具体数值。",
+            "parameters": {
+                "symbol": {
+                    "type": "string",
+                    "description": "股票代码。A股格式如'SH600519'；美股格式如'TSLA', 'AAPL'。"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "需要查询的信息项。A股字段名为中文（如'上市时间'）；美股字段名为【财务报表项目中文名】（如'现金及现金等价物', '递延所得税资产', '存货'等）。"
+                }
+            },
+            "required": [
+                "symbol",
+                "item_name"
+            ]
+        }
+    },
+    "get_stock_basic_info_a": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_basic_info_a",
+            "description": "【分类路径: 个体实体 > 股票 > 档案/静态信息】获取指定A股（中国大陆股票）的基础信息中的单个字段值。数据来源于东方财富。",
+            "parameters": {
+                "symbol": {
+                    "type": "string",
+                    "description": "要查询的A股股票代码。支持纯6位数字格式（如 '000001'）或包含交易所前缀的格式（如 'SH600519', 'SZ000001'）。"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "需要查询的信息项（字段名），必须是【中文】。",
+                    "enum": [
+                        "最新",
+                        "股票代码",
+                        "股票简称",
+                        "总股本",
+                        "流通股",
+                        "总市值",
+                        "流通市值",
+                        "行业",
+                        "上市时间"
+                    ]
+                }
+            },
+            "required": [
+                "symbol",
+                "item_name"
+            ]
+        }
+    },
+    "get_hk_stock_basic_info": {
+        "type": "function",
+        "function": {
+            "name": "get_hk_stock_basic_info",
+            "description": "【分类路径: 个体实体 > 股票 > 档案/静态信息】查询单只港股的公司概况信息。数据来源于雪球财经，提供的是公司的静态档案类信息，如公司中英文名、主席、主营业务、官网等。用户必须提供股票代码或名称中的一个。",
+            "parameters": {
+                "item_name": {
+                    "type": "string",
+                    "description": "要查询的公司信息项目名称。",
+                    "enum": [
+                        "comunic",
+                        "comcnname",
+                        "comenname",
+                        "incdate",
+                        "rgiofc",
+                        "hofclctmbu",
+                        "chairman",
+                        "mbu",
+                        "comintr",
+                        "refccomty",
+                        "numtissh",
+                        "ispr",
+                        "nrfd",
+                        "nation_name",
+                        "tel",
+                        "fax",
+                        "email",
+                        "web_site",
+                        "lsdateipo",
+                        "mainholder"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "要查询股票的中文名称，例如 '腾讯控股'。当代码未知时使用。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "要查询股票的港股代码，例如 '00700'。如果代码已知，建议优先使用此参数。"
+                }
+            },
+            "required": [
+                "item_name"
+            ]
+        }
+    },
+    "get_hk_stock_daily_price": {
+        "type": "function",
+        "function": {
+            "name": "get_hk_stock_daily_price",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】【任何时候查询港股股价，请优先使用这一函数】获取指定港股在特定日期的历史行情数据，如开盘价、收盘价等。支持'最新'查询和自动日期回退。",
+            "parameters": {
+                "query_date": {
+                    "type": "string",
+                    "description": "查询的日期，格式为 'YYYY-MM-DD'。关键：如果需要获取最新可用数据，请直接将此参数设置为字符串 'latest'。函数将自动查找最近一个交易日的数据。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的数据列名称。",
+                    "enum": [
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                    ]
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' 代表不复权, 'qfq' 代表前复权, 'hfq' 代表后复权。默认为''。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "港股的5位数字代码，例如 '00700'。'code' 和 'name' 至少需要提供一个。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "港股的中文简称，例如 '腾讯控股'。'code' 和 'name' 至少需要提供一个。"
+                }
+            },
+            "required": [
+                "query_date",
+                "column_label"
+            ]
+        }
+    },
+    "calculate_futures_minute_spread": {
+        "type": "function",
+        "function": {
+            "name": "calculate_futures_minute_spread",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 衍生/计算】计算两种期货合约在【当日分钟线】上的价差 (symbol2 - symbol1)，并找出价差的最大值、最小值及其对应的分钟",
+            "parameters": {
+                "symbol1": {
+                    "type": "string",
+                    "description": "第一个期货合约代码 (基准)，例如 'c2407'。"
+                },
+                "symbol2": {
+                    "type": "string",
+                    "description": "第二个期货合约代码 (目标)，例如 'cs2407'。价差将以 'symbol2 - symbol1' 计算。"
+                },
+                "period": {
+                    "type": "string",
+                    "description": "分时数据周期。支持 '1', '5', '15', '30', '60' 分钟。默认为 '1'。",
+                    "default": "1"
+                }
+            },
+            "responses": {
+                "type": "object",
+                "description": "包含分析结果的字典。在失败时，'value' 键会返回一个哨兵值 (0.0) 并且 'error' 键会包含错误信息。",
+                "properties": {
+                    "analysis_type": {
+                        "type": "string",
+                        "description": "分析类型, 固定为 'futures_minute_spread'。"
+                    },
+                    "symbol_base": {
+                        "type": "string",
+                        "description": "作为基准的合约 (symbol1)。"
+                    },
+                    "symbol_target": {
+                        "type": "string",
+                        "description": "作为目标的合约 (symbol2)。"
+                    },
+                    "max_spread": {
+                        "type": "object",
+                        "description": "最大价差详情。这是 solve() 脚本所依赖的键。",
+                        "properties": {
+                            "value": {
+                                "type": "number",
+                                "description": "计算出的最大价差数值。如果失败，返回 0.0。"
+                            },
+                            "date": {
+                                "type": "string",
+                                "description": "出现最大价差的时间 (YYYY-MM-DD HH:MM:SS)。如果失败，返回 '1970-01-01 00:00:00'。",
+                                "format": "date-time"
+                            },
+                            "error": {
+                                "type": "string",
+                                "description": "如果发生错误，此处将包含错误信息。"
+                            }
+                        },
+                        "required": [
+                            "value",
+                            "date"
+                        ]
+                    },
+                    "min_spread": {
+                        "type": "object",
+                        "description": "最小价差详情。",
+                        "properties": {
+                            "value": {
+                                "type": "number",
+                                "description": "计算出的最小价差数值。如果失败，返回 0.0。"
+                            },
+                            "date": {
+                                "type": "string",
+                                "description": "出现最小价差的时间 (YYYY-MM-DD HH:MM:SS)。如果失败，返回 '1970-01-01 00:00:00'。",
+                                "format": "date-time"
+                            }
+                        },
+                        "required": [
+                            "value",
+                            "date"
+                        ]
+                    }
+                },
+                "required": [
+                    "max_spread",
+                    "min_spread"
+                ]
+            },
+            "required": [
+                "symbol1",
+                "symbol2"
+            ]
+        }
+    },
+    "get_stock_comment": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_comment",
+            "description": "【分类路径: 个体实体 > 股票 > 分析/情绪/预测】查询单只A股在最新交易日的【千股千评】综合评价。可用于获取如'机构参与度'、'综合得分'、'主力成本'等特色指标，反映市场对该股票的综合看法。",
+            "parameters": {
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的评价指标。",
+                    "enum": [
+                        "最新价",
+                        "涨跌幅",
+                        "换手率",
+                        "市盈率",
+                        "主力成本",
+                        "机构参与度",
+                        "综合得分",
+                        "目前排名",
+                        "关注指数"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码。"
+                }
+            },
+            "required": [
+                "column_label"
+            ]
+        }
+    },
+    "get_balance_sheet": {
+        "type": "function",
+        "function": {
+            "name": "get_balance_sheet",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股公司在特定财报报告期的【资产负债表】数据。可用于获取如'货币资金', '应收账款', '存货', '总资产', '总负债'等具体科目的金额（单位：元）。用户必须提供股票代码或名称。",
+            "parameters": {
+                "date": {
+                    "type": "string",
+                    "description": "要查询的财报报告期，格式 'YYYY-MM-DD' 或 'YYYYMMDD'。必须是季度末日期，如 '2024-03-31'。"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "要查询的资产负债表中的具体会计科目名称。",
+                    "enum": [
+                        "资产-货币资金",
+                        "资产-应收账款",
+                        "资产-存货",
+                        "资产-总资产",
+                        "资产-总资产同比",
+                        "负债-应付账款",
+                        "负债-总负债",
+                        "负债-预收账款",
+                        "负债-总负债同比",
+                        "资产负债率",
+                        "股东权益合计"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '养元饮品'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码，例如 '603156'。"
+                }
+            },
+            "required": [
+                "date",
+                "item_name"
+            ]
+        }
+    },
+    "get_income_statement": {
+        "type": "function",
+        "function": {
+            "name": "get_income_statement",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股公司在特定财报报告期的【利润表】数据。可用于获取如'净利润', '营业总收入', '销售费用', '管理费用', '财务费用'等具体科目的金额（单位：元）。用户必须提供股票代码或名称。",
+            "parameters": {
+                "date": {
+                    "type": "string",
+                    "description": "要查询的财报报告期，格式 'YYYY-MM-DD' 或 'YYYYMMDD'。必须是季度末日期，如 '2024-03-31'。"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "要查询的利润表中的具体会计科目名称。",
+                    "enum": [
+                        "净利润",
+                        "净利润同比",
+                        "营业总收入",
+                        "营业总收入同比",
+                        "营业总支出-营业支出",
+                        "营业总支出-销售费用",
+                        "营业总支出-管理费用",
+                        "营业总支出-财务费用",
+                        "营业总支出-营业总支出",
+                        "营业利润",
+                        "利润总额"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '养元饮品'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码，例如 '603156'。"
+                }
+            },
+            "required": [
+                "date",
+                "item_name"
+            ]
+        }
+    },
+    "get_earnings_report_summary": {
+        "type": "function",
+        "function": {
+            "name": "get_earnings_report_summary",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股公司在特定财报报告期的【业绩报表】摘要。提供核心的业绩指标，如每股收益、营业总收入、净利润及其同比增长率等。用户必须提供股票代码或名称。",
+            "parameters": {
+                "date": {
+                    "type": "string",
+                    "description": "要查询的财报报告期，格式 'YYYY-MM-DD' 或 'YYYYMMDD'。必须是季度末日期，如 '2022-03-31'。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的业绩指标。",
+                    "enum": [
+                        "每股收益",
+                        "营业总收入-营业总收入",
+                        "营业总收入-同比增长",
+                        "营业总收入-季度环比增长",
+                        "净利润-净利润",
+                        "净利润-同比增长",
+                        "净利润-季度环比增长",
+                        "每股净资产",
+                        "净资产收益率",
+                        "每股经营现金流量",
+                        "销售毛利率"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '粤桂股份'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码，例如 '000833'。"
+                }
+            },
+            "required": [
+                "date",
+                "column_label"
+            ]
+        }
+    },
+    "get_financial_indicators": {
+        "type": "function",
+        "function": {
+            "name": "get_financial_indicators",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股公司在特定财报报告期的【主要财务指标】。此工具提供已计算好的关键指标，如净资产收益率(ROE)、毛利率、资产负债率、存货周转天数等，非常适合进行财务分析。用户必须提供股票代码或名称。",
+            "parameters": {
+                "report_date": {
+                    "type": "string",
+                    "description": "要查询的财报报告期，格式 'YYYY-MM-DD'。必须是季度末日期，如 '2023-12-31'。"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "要查询的具体财务指标的英文大写代码。例如 'ROEJQ' 代表净资产收益率(加权)。",
+                    "enum": [
+                        "BASIC_EPS",
+                        "DILUTED_EPS",
+                        "BPS",
+                        "ROEJQ",
+                        "XSMLL",
+                        "XSJLL",
+                        "ZCFZL",
+                        "LD",
+                        "SD",
+                        "CHZZTS",
+                        "YSZKZZTS",
+                        "TOAZZL",
+                        "TOTALOPERATEREVE",
+                        "PARENTNETPROFIT",
+                        "KCFJCXSYJLR",
+                        "TOTALOPERATEREVETZ",
+                        "PARENTNETPROFITTZ",
+                        "KCFJCXSYJLRTZ"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '东方财富'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码，例如 '300059'。"
+                }
+            },
+            "required": [
+                "report_date",
+                "item_name"
+            ]
+        }
+    },
+    "get_top_10_shareholders": {
+        "type": "function",
+        "function": {
+            "name": "get_top_10_shareholders",
+            "description": "【分类路径: 个体实体 > 股票 > 档案/静态信息】查询A股公司在特定财报报告期的【十大股东】名册。返回一个包含股东名称、持股数量、占总股本比例以及持股变动情况的格式化列表。",
+            "parameters": {
+                "date": {
+                    "type": "string",
+                    "description": "要查询的财报报告期，格式 'YYYY-MM-DD' 或 'YYYYMMDD'。必须是季度末日期，如 '2021-06-30'。"
+                },
+                "stock_code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码或带市场前缀的代码，例如 '688686' 或 'sh688686'。"
+                }
+            },
+            "required": [
+                "date",
+                "stock_code"
+            ]
+        }
+    },
+    "get_dividend_allotment_history": {
+        "type": "function",
+        "function": {
+            "name": "get_dividend_allotment_history",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询单只A股基于特定财报报告期的【历史分红配送】方案。可用于获取某一年的送股、转股、派息比例以及方案进度等信息。用户必须提供股票代码或名称。",
+            "parameters": {
+                "report_period": {
+                    "type": "string",
+                    "description": "要查询方案所依据的财报报告期，格式 'YYYY-MM-DD'。例如 '2021-12-31'。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的具体分红信息项。",
+                    "enum": [
+                        "送转股份-送转总比例",
+                        "送转股份-送股比例",
+                        "送转股份-转股比例",
+                        "现金分红-现金分红比例",
+                        "现金分红-股息率",
+                        "方案进度",
+                        "股权登记日",
+                        "除权除息日"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '当升科技'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的6位数字代码，例如 '300073'。"
+                }
+            },
+            "required": [
+                "report_period",
+                "column_label"
+            ]
+        }
+    },
+    "get_stock_consensus_forecast": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_consensus_forecast",
+            "description": "【分类路径: 个体实体 > 股票 > 分析/情绪/预测】查询A股公司在未来特定年份的【分析师一致盈利预测】汇总数据。用于获取多家机构对该公司未来“每股收益”或“净利润”的共识预测值，如平均值、最大值或最小值。是回答“预计XX公司明年净利润有多少？”这类问题的首选工具。",
+            "parameters": {
+                "metric": {
+                    "type": "string",
+                    "description": "要查询的预测指标名称。",
+                    "enum": [
+                        "每股收益",
+                        "净利润"
+                    ]
+                },
+                "value_type": {
+                    "type": "string",
+                    "description": "要获取的预测值的统计类型。",
+                    "enum": [
+                        "最小值",
+                        "均值",
+                        "最大值"
+                    ]
+                },
+                "year": {
+                    "type": "integer",
+                    "description": "要查询的目标预测年份，格式为YYYY，例如 2025。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "要查询股票的中文名称，例如 '贵州茅台'。'name' 和 'code' 必须提供一个。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "要查询股票的6位数字代码，例如 '600519'。如果'code'和'name'同时提供，则优先使用'code'。"
+                }
+            },
+            "returns": {
+                "type": "number",
+                "description": "返回查询到的具体预测数值（浮点数）。其中，'净利润'的单位是人民币“元”。如果查询失败或无数据，可能返回包含错误信息的字符串。"
+            },
+            "required": [
+                "metric",
+                "value_type",
+                "year"
+            ]
+        }
+    },
+    "get_stock_detailed_metric_forecast": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_detailed_metric_forecast",
+            "description": "【分类路径: 个体实体 > 股票 > 分析/情绪/预测】查询A股公司在未来特定年份的【详细财务指标预测】的平均值。相比 `get_stock_consensus_forecast`，此工具提供更丰富的指标，如“营业收入”、“净利润增长率”、“净资产收益率”等分析师共识预测。",
+            "parameters": {
+                "metric_name": {
+                    "type": "string",
+                    "description": "要查询的具体财务指标名称。",
+                    "enum": [
+                        "营业收入(元)",
+                        "营业收入增长率",
+                        "利润总额(元)",
+                        "净利润(元)",
+                        "净利润增长率",
+                        "每股现金流(元)",
+                        "每股净资产(元)",
+                        "净资产收益率",
+                        "市盈率(动态)"
+                    ]
+                },
+                "year": {
+                    "type": "integer",
+                    "description": "要查询的目标预测年份，格式为YYYY，例如 2025。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "要查询股票的中文名称，例如 '宁德时代'。'name' 和 'code' 必须提供一个。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "要查询股票的6位数字代码，例如 '300750'。如果'code'和'name'同时提供，则优先使用'code'。"
+                }
+            },
+            "returns": {
+                "description": "返回查询到的预测值。数值型指标（如营业收入）返回浮点数，增长率/比率型指标返回小数形式的浮点数（如0.15代表15%）。查询失败或无数据时，可能返回包含错误信息的字符串。"
+            },
+            "required": [
+                "metric_name",
+                "year"
+            ]
+        }
+    },
+    "get_earnings_announcement": {
+        "type": "function",
+        "function": {
+            "name": "get_earnings_announcement",
+            "description": "【分类路径: 个体实体 > 股票 > 分析/情绪/预测】查询A股公司针对特定财报报告期（如年报、季报）官方发布的【业绩预告】详情。用于获取公司自己披露的业绩前瞻信息，如“预告类型”（预增、预减等）、“业绩变动幅度”等。",
+            "parameters": {
+                "report_date": {
+                    "type": "string",
+                    "description": "要查询的财报报告期，格式 'YYYY-MM-DD'。必须是季度末日期，例如 '2024-03-31'。"
+                },
+                "item_name": {
+                    "type": "string",
+                    "description": "要查询的业绩预告中的具体信息项。",
+                    "enum": [
+                        "预告类型",
+                        "业绩变动幅度",
+                        "业绩变动原因",
+                        "上年同期值",
+                        "公告日期"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "要查询股票的中文名称，例如 '平安银行'。'name' 和 'code' 必须提供一个。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "要查询股票的6位数字代码，例如 '000001'。如果'code'和'name'同时提供，则优先使用'code'。"
+                }
+            },
+            "returns": {
+                "description": "返回查询到的具体信息。其类型可能是字符串（如'预增'），也可能是数字（如业绩变动幅度的百分比）。如果一家公司在同一报告期有多条预告，函数会自动返回最新的一条。查询失败或无数据时，可能返回包含错误信息的字符串。"
+            },
+            "required": [
+                "report_date",
+                "item_name"
+            ]
+        }
+    },
+    "get_nbs_region_data": {
+        "type": "function",
+        "function": {
+            "name": "get_nbs_region_data",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】从国家统计局(NBS)获取地区宏观经济数据。可返回完整数据表，或根据指定的时间和标签提取单个精确数值。",
+            "parameters": {
+                "kind": {
+                    "type": "string",
+                    "description": "要查询的数据类别。",
+                    "enum": [
+                        "分省月度数据",
+                        "分省季度数据",
+                        "分省年度数据",
+                        "主要城市月度价格",
+                        "主要城市年度数据",
+                        "港澳台月度数据",
+                        "港澳台年度数据"
+                    ]
+                },
+                "path": {
+                    "type": "string",
+                    "description": "数据的具体路径，层级之间用 ' > ' 连接。示例: '国民经济核算 > 地区生产总值'。"
+                },
+                "period": {
+                    "type": "string",
+                    "description": "要查询的时间区间。格式如 '202301,202305'(月), '2023A,2023B'(季), '2022'(年), 'last10'(最近)。"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "可选参数，指定要查询的地区，例如 '河北省'。"
+                },
+                "indicator": {
+                    "type": "string",
+                    "description": "可选参数，指定要查询的具体指标。'indicator' 和 'region' 至少需要提供一个。"
+                },
+                "target_label": {
+                    "type": "string",
+                    "description": "[可选] 要提取数值的行标签。如果提供了'region'，这里应是指标名；如果提供了'indicator'，这里应是地区名。"
+                },
+                "target_time": {
+                    "type": "string",
+                    "description": "[可选] 要提取数值的列标签，即具体的时间点，例如 '2025年第一季度'。"
+                }
+            },
+            "required": [
+                "kind",
+                "path",
+                "period"
+            ]
+        }
+    },
+    "get_gold_forex_reserves": {
+        "type": "function",
+        "function": {
+            "name": "get_gold_forex_reserves",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取中国央行【黄金储备】或【国家外汇储备】在指定时间段内的【月度】原始数据。返回一个包含'统计时间'和指定指标列的DataFrame",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "indicator_name": {
+                        "type": "STRING",
+                        "description": "要查询的指标名称。必须从提供的选项中选择一个。",
+                        "enum": [
+                            "黄金储备",
+                            "国家外汇储备"
+                        ]
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始月份，格式为 'YYYY-MM'。例如：'2022-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束月份，格式为 'YYYY-MM'。例如：'2023-12'。"
+                    }
+                },
+                "required": [
+                    "indicator_name",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_stock_map_by_market": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_map_by_market",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】根据市场 ('a', 'hk', 'us')，返回 {股票名称: 股票代码} 的字典，或所有股票代码的列表。如果选择本工具返回了股票代码列表，可以使用python_interpreter工具查看代码列表",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "market": {
+                        "type": "STRING",
+                        "description": "市场代码，必须是 'a' (A股), 'hk' (港股), 或 'us' (美股)。",
+                        "enum": [
+                            "a",
+                            "hk",
+                            "us"
+                        ]
+                    },
+                    "output_format": {
+                        "type": "STRING",
+                        "description": "返回的格式。'dict' (默认) 返回 {名称: 代码} 映射, 'code_list' 返回所有代码的列表。",
+                        "enum": [
+                            "dict",
+                            "code_list"
+                        ],
+                        "default": "dict"
+                    }
+                },
+                "required": [
+                    "market"
+                ]
+            }
+        }
+    },
+    "get_us_stock_map_by_exchange": {
+        "type": "function",
+        "function": {
+            "name": "get_us_stock_map_by_exchange",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】返回指定美股市场（例如 'NASDAQ', 'NYSE'）的所有股票 {name: symbol} 字典或所有股票代码 (symbol) 的列表。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "exchange_name": {
+                        "type": "STRING",
+                        "description": "交易所的准确名称 (例如 'NASDAQ', 'NYSE')。注意：此筛选区分大小写。"
+                    },
+                    "output_format": {
+                        "type": "STRING",
+                        "description": "返回的格式。'dict' (默认) 返回 {name: symbol} 映射, 'code_list' 返回所有代码 (symbol) 的列表。",
+                        "enum": [
+                            "dict",
+                            "code_list"
+                        ],
+                        "default": "dict"
+                    }
+                },
+                "required": [
+                    "exchange_name"
+                ]
+            }
+        }
+    },
+    "calculate_gold_forex_change": {
+        "type": "function",
+        "function": {
+            "name": "calculate_gold_forex_change",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】【分析工具】计算【黄金储备】和【国家外汇储备】两个指标在指定时间段内的累计数值变化和百分比变化。返回一个包含'统计时间'和指定指标列的DataFrame",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "分析周期的开始月份，格式为 'YYYY-MM'。例如：'2020-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "分析周期的结束月份，格式为 'YYYY-MM'。例如：'2023-12'。"
+                    }
+                },
+                "required": [
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_lpr_rate": {
+        "type": "function",
+        "function": {
+            "name": "get_lpr_rate",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取LPR（贷款市场报价利率）或其他相关贷款利率在指定时间段内的历史数据。返回一个包含'日期'和指定利率品种数值列的DataFrame, 或一个错误信息字符串",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "indicator_name": {
+                        "type": "STRING",
+                        "description": "要查询的利率品种名称。LPR1Y代表1年期LPR，LPR5Y代表5年期LPR，RATE_1代表6个月至1年期贷款利率，RATE_2代表5年以上中长期贷款利率。",
+                        "enum": [
+                            "LPR1Y",
+                            "LPR5Y",
+                            "RATE_1",
+                            "RATE_2"
+                        ]
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2022-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2023-12-31'。"
+                    }
+                },
+                "required": [
+                    "indicator_name",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_lpr_rate_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_lpr_rate_on_date",
+            "description": "分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取LPR（贷款市场报价利率）在【某一个指定日期】的（最近）有效数值。将返回指定日期或在此之前的最近一个数据点。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "indicator_name": {
+                        "type": "STRING",
+                        "description": "要查询的利率品种名称。",
+                        "enum": [
+                            "LPR1Y",
+                            "LPR5Y",
+                            "RATE_1",
+                            "RATE_2"
+                        ]
+                    },
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的日期, 格式 'YYYY-MM-DD'。"
+                    }
+                },
+                "required": [
+                    "indicator_name",
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "calculate_lpr_rate_change": {
+        "type": "funciton",
+        "function": {
+            "name": "calculate_lpr_rate_change",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】【分析工具】计算中国LPR（贷款市场报价利率）或历史贷款利率在指定时间段内的变化值（涨跌幅），通常以基点(BP)为单位。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "indicator_name": {
+                        "type": "STRING",
+                        "description": "要分析的利率品种名称。LPR1Y代表1年期LPR，LPR5Y代表5年期以上LPR，RATE_1代表历史1年期贷款利率，RATE_2代表历史5年期以上贷款利率。",
+                        "enum": [
+                            "LPR1Y",
+                            "LPR5Y",
+                            "RATE_1",
+                            "RATE_2"
+                        ]
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "分析周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2020-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "分析周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2023-12-31'。"
+                    }
+                },
+                "required": [
+                    "rate_name",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_china_macro_pro": {
+        "type": "function",
+        "function": {
+            "name": "get_china_macro_pro",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取中国【最新已公布】的核心宏观经济指标统计数据，数据每月更新。可用于查询近期（包括当前年份的最新月份）的CPI、财政收入、货币供应量(M2)等【已公布】的官方数据。注意：此工具【不能】用于经济预测，只能查询已有统计月份的数据。",
+            "parameters": {
+                "indicator_name": {
+                    "type": "string",
+                    "description": "要查询的宏观指标名称。",
+                    "enum": [
+                        "cpi",
+                        "fiscal_revenue",
+                        "money_supply",
+                        "gold_forex_reserves",
+                        "central_bank_balance_sheet"
+                    ]
+                },
+                "target_time": {
+                    "type": "string",
+                    "description": "[可选] 要查询的【具体月份】。格式必须与数据源严格匹配，例如 '2024年12月份'。不支持 'YYYY-MM-DD' 或其他模糊日期格式。"
+                },
+                "target_metric": {
+                    "type": "string",
+                    "description": "[可选] 要查询的具体指标列名，例如 '当月' 或 '累计-同比增长'。可用指标取决于所选的 'indicator_name'。"
+                }
+            },
+            "required": [
+                "indicator_name"
+            ]
+        }
+    },
+    "get_ppi_yearly_by_quarters": {
+        "type": "function",
+        "function": {
+            "name": "get_ppi_yearly_by_quarters",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取中国PPI（生产者物价指数）年率在【一个或多个指定季度】内的【月度同比】数据。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "quarters": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "一个包含一个或多个季度字符串的列表。格式必须是 'YYYYQX'，例如：要查询2023年第一季度和第四季度，应传入 ['2023Q1', '2023Q4']。"
+                    }
+                },
+                "required": [
+                    "quarters"
+                ]
+            }
+        }
+    },
+    "get_ppi_rate_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_ppi_rate_on_date",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取中国PPI年率在【某一个指定月份】的（最近）有效数值。将返回指定月份或在此之前的最近一个月的数据点。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的月份, 格式 'YYYY-MM' (例如: '2024-01')。"
+                    }
+                },
+                "required": [
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "get_m2_supply_rate": {
+        "type": "function",
+        "function": {
+            "name": "get_m2_supply_rate",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取中国M2货币供应年率在指定时间段内的月度原始数据。返回一个包含'date' (月份) 和 'value' (M2年率) 列的DataFrame, 或一个错误信息字符串。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始月份，格式为 'YYYY-MM'。例如：'2022-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束月份，格式为 'YYYY-MM'。例如：'2023-12'。"
+                    }
+                },
+                "required": [
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "calculate_m2_supply_rate_change": {
+        "type": "function",
+        "function": {
+            "name": "calculate_m2_supply_rate_change",
+            "description": "【分析工具】计算中国M2货币供应年率在指定时间段内的变化值（结束值减去开始值）。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "分析周期的开始月份，格式为 'YYYY-MM'。例如：'2020-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "分析周期的结束月份，格式为 'YYYY-MM'。例如：'2023-12'。"
+                    }
+                },
+                "required": [
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_futures_daily_price": {
+        "type": "function",
+        "function": {
+            "name": "get_futures_daily_price",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 价格/行情】【中国内地期货专用】获取指定【中国期货合约】在特定日期范围内的日线行情数据。警告：此工具【仅支持中国市场】，覆盖上期所(SHFE)、大商所(DCE)、郑商所(CZCE)等。它【绝对无法】查询如WTI原油(CL)、COMEX黄金(GC)等国际期货。",
+            "parameters": {
+                "symbol": {
+                    "type": "string",
+                    "description": "要查询的中国期货合约代码，例如 'rb2506' (螺纹钢), 'v2505' (PVC), 'SC2508' (上海原油)。"
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "查询的开始日期，格式为 'YYYYMMDD'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询的结束日期，格式为 'YYYYMMDD'。如果省略，则默认为开始日期。"
+                }
+            },
+            "required": [
+                "symbol",
+                "start_date"
+            ]
+        }
+    },
+    "get_futures_price_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_futures_price_on_date",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 价格/行情】获取指定期货合约在【某一个指定日期】的日线行情数据。会返回该日期的开盘、收盘、最高、最低、成交量等。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "symbol": {
+                        "type": "STRING",
+                        "description": "要查询的期货合约代码, 例如 'rb2401' 或 'IF2403'。"
+                    },
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的日期, 格式必须是 'YYYYMMDD', 例如 '20241030'。"
+                    }
+                },
+                "required": [
+                    "symbol",
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "get_futures_history": {
+        "type": "function",
+        "function": {
+            "name": "get_futures_history",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 价格/行情】获取单个期货品种的主力连续合约在指定时间段内的日度历史行情数据。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "name": {
+                        "type": "STRING",
+                        "description": "要查询的期货品种的中文名称。例如：'螺纹钢连续', '黄金连续', '沪深300指数期货连续'。"
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2022-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2023-12-31'。"
+                    },
+                    "columns_to_include": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "(可选) 指定需要返回的一个或多个数据列名。如果未提供，则返回所有可用列。有效选项包括: ['开盘价', '最高价', '最低价', '收盘价', '成交量', '持仓量', '动态结算价']。"
+                    }
+                },
+                "required": [
+                    "name",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_gold_forex_reserves_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_gold_forex_reserves_on_date",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取央行黄金储备或国家外汇储备在【某一个指定月份】的（最近）有效数值。将返回指定月份或在此之前的最近一个月的数据点。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "indicator_name": {
+                        "type": "STRING",
+                        "description": "要查询的指标名称。",
+                        "enum": [
+                            "黄金储备",
+                            "国家外汇储备"
+                        ]
+                    },
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的月份, 格式 'YYYY-MM' (例如: '2024-01')。"
+                    }
+                },
+                "required": [
+                    "indicator_name",
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "get_m2_supply_rate_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_m2_supply_rate_on_date",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取中国M2货币供应年率在【某一个指定月份】的（最近）有效数值。将返回指定月份或在此之前的最近一个月的数据点。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的月份, 格式 'YYYY-MM' (例如: '2024-01')。"
+                    }
+                },
+                "required": [
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "get_currency_rate_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_currency_rate_on_date",
+            "description": "【分类路径: 个体实体 > 外汇 > 价格/行情】获取【某种外币】对人民币汇率中间价在【某一个指定日期】的（最近）有效数值。将返回指定日期或在此之前的最近一个数据点。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "currency_name": {
+                        "type": "STRING",
+                        "description": "要查询的货币名称。例如 '美元', '欧元', '日元' 等。"
+                    },
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的日期, 格式 'YYYY-MM-DD' (例如: '2024-10-30')。"
+                    }
+                },
+                "required": [
+                    "currency_name",
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "get_forex_price_on_date": {
+        "type": "function",
+        "function": {
+            "name": "get_forex_price_on_date",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 经济指标】获取【单个外汇品种】在【某一个指定日期】的（最近）有效行情数据。将返回指定日期或在此之前的最近一个数据点。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "symbol": {
+                        "type": "STRING",
+                        "description": "要查询的品种代码。例如: 'USDCNH', 'EURCNH'。"
+                    },
+                    "query_date": {
+                        "type": "STRING",
+                        "description": "要查询的日期, 格式 'YYYY-MM-DD' (例如: '2024-10-30')。"
+                    }
+                },
+                "required": [
+                    "symbol",
+                    "query_date"
+                ]
+            }
+        }
+    },
+    "get_us_stock_daily_price": {
+        "type": "function",
+        "function": {
+            "name": "get_us_stock_daily_price",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】【任何时候查询美股股价，请优先使用这一函数】获取指定美股在特定日期的历史行情数据 (如开盘价、收盘价等)，或当同时提供 start_date 时，查找指定日期范围内的最低或最高值。优先使用在线实时数据，并具备智能日期回退功能。\n\n**重要**: \n- **单日查询模式** (仅提供 `query_date`): 返回包含 `requested_item` (内含 `name` 和 `value`) 的 JSON 对象。\n- **范围查询模式** (同时提供 `start_date` 和 `query_date`): **函数会自动计算并返回一个不同的 JSON 结构**，包含 `query_type: \"range_minimum\"` (或类似值，取决于请求的列), `min_value` (范围内的最小值), 和 `date_of_min_value` (最小值出现的日期)。模型需要解析这个特定结构来获取范围内的最值。",
+            "parameters": {
+                "query_date": {
+                    "type": "string",
+                    "description": "查询的日期，格式为 'YYYY-MM-DD'。关键：获取最新数据请用 'latest'。注意：如果同时提供了 `start_date`，此 `query_date` 将作为范围查询的【结束日期】。"
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "(可选) 范围查询的【开始日期】，格式为 'YYYY-MM-DD'。提供此参数会触发范围查询模式，函数将返回范围内的最值，而不是单日数据。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的数据列名称。在范围查询模式下（当 `start_date` 被提供时），此参数指定需要查找最小值或最大值的列（例如，使用 'close' 会查找范围内的最低收盘价）。",
+                    "enum": [
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume",
+                        "prev_close"
+                    ]
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' 代表不复权，'qfq' 代表前复权。",
+                    "enum": [
+                        "",
+                        "qfq"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的标准代码，例如 'NVDA' 或 'AAPL'。'code' 和 'name' 至少需要提供一个。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的英文名称，例如 'Nvidia' 或 'Apple'。'code' 和 'name' 至少需要提供一个。"
+                }
+            },
+            "required": [
+                "query_date",
+                "column_label",
+                "adjust"
+            ]
+        }
+    },
+    "get_a_stock_daily_price": {
+        "type": "function",
+        "function": {
+            "name": "get_a_stock_daily_price",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】【任何时候查询A股股价，请优先使用这一函数】获取指定A股在特定日期的历史行情数据，如开盘价、收盘价等。支持'最新'查询和自动日期回退。",
+            "parameters": {
+                "query_date": {
+                    "type": "string",
+                    "description": "查询的日期，格式为 'YYYY-MM-DD'。关键：如果需要获取最新可用数据，请直接将此参数设置为字符串 'latest'。函数将自动查找最近一个交易日的数据。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的数据列名称。注意：查询成交量请使用 'volume'。",
+                    "enum": [
+                        "open",
+                        "close",
+                        "high",
+                        "low",
+                        "volume"
+                    ]
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' 代表不复权, 'qfq' 代表前复权, 'hfq' 代表后复权。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票代码，必须包含交易所前缀，例如 'sh600519' 或 'sz000001'。'code' 和 'name' 至少需要提供一个。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的中文名称，例如 '贵州茅台'。'code' 和 'name' 至少需要提供一个。"
+                }
+            },
+            "required": [
+                "query_date",
+                "column_label",
+                "adjust"
+            ]
+        }
+    },
+    "get_multiple_index_history_df": {
+        "type": "function",
+        "function": {
+            "name": "get_multiple_index_history_df",
+            "description": "【分类路径: 个体实体 > 指数 > 价格/行情】获取【单个或多个指数】在【指定时间段内】的详细历史行情数据（如开盘价、收盘价、成交金额等），并以一个结构化的DataFrame返回，便于直接进行数据分析和比较。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "identifiers": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "一个包含多个指数名称或代码的列表。例如：['沪深300', '纳斯达克', '恒生指数']。"
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2024-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2024-05-10'。"
+                    },
+                    "columns_to_include": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "(可选) 一个包含所需数据列名的列表。**此函数支持 'turnover' (成交金额)。** 请注意：函数只返回原始行情数据，不进行计算。有效的列名包括 'open', 'high', 'low', 'close', 'volume', 'turnover'。默认为返回所有可用列。"
+                    }
+                },
+                "required": [
+                    "identifiers",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "get_stocks_history_dataframe": {
+        "type": "function",
+        "function": {
+            "name": "get_stocks_history_dataframe",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】当需要获取【多只股票】在一段时间内的历史行情时，请优先使用此工具。它一次性返回包含所有股票数据的DataFrame对象，比在循环中多次调用 'get_a_stock_daily_price' 或 'get_hk_stock_daily_price' 等单体查询工具效率高得多。适用于需要对多只股票进行计算或时间序列分析的复杂任务。",
+            "parameters": {
+                "codes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "单个股票代码。"
+                    },
+                    "description": "一个包含股票代码的列表 (例如: [\"sh600519\", \"sz300750\", \"AAPL\"])。"
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。"
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。可以是 '' (不复权), 'qfq' (前复权), 或 'hfq' (后复权)。默认为不复权。",
+                    "default": "",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                }
+            },
+            "required": [
+                "codes",
+                "start_date",
+                "end_date"
+            ]
+        }
+    },
+    "get_stocks_gain_ranking_dataframe": {
+        "type": "function",
+        "function": {
+            "name": "get_stocks_gain_ranking_dataframe",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】【批量分析首选】当需要计算【多只股票】在一段时间内的涨跌幅并进行【排名】时，请使用此工具。它会直接返回一个包含排名、代码、名称和涨跌幅的DataFrame，是回答“哪个涨得最多？”这类问题的最佳工具。",
+            "parameters": {
+                "codes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "一个包含股票代码的列表 (例如: [\"sh600519\", \"sz300750\"])。"
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。"
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。可以是 '' (不复权), 'qfq' (前复权), 或 'hfq' (后复权)。默认为不复权。",
+                    "default": "",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                }
+            },
+            "required": [
+                "codes",
+                "start_date",
+                "end_date"
+            ]
+        }
+    },
+    "get_index_components": {
+        "type": "funciton",
+        "function": {
+            "name": "get_index_components",
+            "description": "【分类路径: 个体实体 > 股票 > 价格/行情】根据中证指数代码(例如 '000300'), 获取其所有成分股的列表。可选择性地包含每只股票的权重。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "symbol": {
+                        "type": "STRING",
+                        "description": "要查询的指数代码, 例如 '000300' (沪深300) 或 '000688' (科创50)。也接受 '000300.SH' 这样的带后缀格式。"
+                    },
+                    "include_weights": {
+                        "type": "BOOLEAN",
+                        "description": "是否获取每只成分股的权重。True 则返回权重, False 则不返回。默认为 False。",
+                        "default": false
+                    }
+                },
+                "required": [
+                    "symbol"
+                ]
+            }
+        }
+    },
+    "get_index_stock_info": {
+        "type": "function",
+        "function": {
+            "name": "get_index_stock_info",
+            "description": "【分类路径: 个体实体 > 指数 > 基本信息】根据指数的中文名称, 从本地CSV文件获取其代码或发布日期。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "index_name": {
+                        "type": "STRING",
+                        "description": "指数的中文名称 (例如 '上证指数')"
+                    },
+                    "info_type": {
+                        "type": "STRING",
+                        "description": "要获取的信息类型",
+                        "enum": [
+                            "code",
+                            "publish_date"
+                        ]
+                    }
+                },
+                "required": [
+                    "index_name",
+                    "info_type"
+                ]
+            }
+        }
+    },
+    "get_indices_gain_ranking_dataframe": {
+        "type": "function",
+        "function": {
+            "name": "get_indices_gain_ranking_dataframe",
+            "description": "【分类路径: 个体实体 > 指数 > 衍生/计算】【批量分析工具】计算【单只/多只指数】在指定时间段内的区间涨跌幅，并按涨幅从高到低进行排名。函数成功时返回一个列表，列表中每一项都是一个JSON对象，代表一只指数，并包含 'rank' (排名), 'identifier' (指数名称), 和 'gain_percentage' (涨跌幅百分比) 这三个字段。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "identifiers": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "一个包含多个指数名称或代码的列表。例如：['沪深300', '纳斯达克', '恒生指数']。"
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2024-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2024-04-30'。"
+                    }
+                },
+                "required": [
+                    "identifiers",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        },
+        "python_interpreter": {
+            "type": "function",
+            "function": {
+                "name": "python_interpreter",
+                "description": "【分类路径：外部工具 > interpreter > python】【数据处理和计算】当您已经通过其他工具获取了原始数据（特别是DataFrame），但需要进行复杂的计算、排序、筛选、聚合或格式化时，请使用此工具。它可以执行Pandas代码来处理数据并得出最终答案。",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string",
+                            "description": "一段有效的Python代码字符串。代码可以访问 pandas 库 (别名为 pd)。代码的最后一行必须是一个可以返回结果的表达式。"
+                        }
+                    },
+                    "required": [
+                        "code"
+                    ]
+                }
+            }
+        }
+    },
+    "get_index_realtime": {
+        "type": "function",
+        "function": {
+            "name": "get_index_realtime",
+            "description": "【分类路径: 个体实体 > 指数 > 价格/行情】【首选】获取指数的【实时】行情数据。此函数速度最快，应优先用于查询当天的开盘价、最高价、最低价、最新价等。不支持查询美股。",
+            "parameters": {
+                "identifier": {
+                    "type": "string",
+                    "description": "要查询的指数的名称或代码，例如 '恒生指数', 'hsi', 'sh000001'。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的具体数据字段。",
+                    "enum": [
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "prev_close",
+                        "change",
+                        "pct_change",
+                        "volume",
+                        "amount",
+                        "amplitude",
+                        "time"
+                    ]
+                },
+                "market": {
+                    "type": "string",
+                    "description": "提供市场的提示（'a', 'hk', 'us', 'global'）可以优化查找速度，但非必需。",
+                    "enum": [
+                        "a",
+                        "hk",
+                        "us",
+                        "global"
+                    ]
+                }
+            },
+            "required": [
+                "identifier",
+                "column_label"
+            ]
+        }
+    },
+    "get_index_history": {
+        "type": "function",
+        "function": {
+            "name": "get_index_history",
+            "description": "【分类路径: 个体实体 > 指数 > 价格/行情】通过网络API获取指数在【指定日期】的【历史】行情数据。当需要查询非今日的数据，或是查询美股行情时使用此函数。支持用 'latest' 或 '今天' 查询最近一个交易日的数据。",
+            "parameters": {
+                "identifier": {
+                    "type": "string",
+                    "description": "要查询的指数的名称或代码，例如 '道琼斯工业平均指数', '.DJI'。"
+                },
+                "query_date": {
+                    "type": "string",
+                    "description": "要查询的日期，格式为 'YYYY-MM-DD'。也可以使用 'latest'、'today'、'今天' 等关键词获取最近交易日的数据。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "要查询的历史数据字段。",
+                    "enum": [
+                        "open",
+                        "high",
+                        "low",
+                        "close",
+                        "volume"
+                    ]
+                },
+                "market": {
+                    "type": "string",
+                    "description": "提供市场的提示（'a', 'hk', 'us', 'global'）可以优化查找速度，但非必需。",
+                    "enum": [
+                        "a",
+                        "hk",
+                        "us",
+                        "global"
+                    ]
+                },
+                "original_query": {
+                    "type": "string",
+                    "description": "用户的原始查询语句，用于辅助判断是否在查询最新数据。此参数由系统自动填充。"
+                }
+            },
+            "required": [
+                "identifier",
+                "query_date",
+                "column_label"
+            ]
+        }
+    },
+    "calculate_price_change_pct": {
+        "type": "function",
+        "function": {
+            "name": "calculate_price_change_pct",
+            "description": "【分类路径: 个体实体 > 股票 > 衍生/计算】计算指定股票在特定日期的涨跌幅。函数会自动处理'最新'日期并查找前一交易日的数据。",
+            "parameters": {
+                "query_date": {
+                    "type": "string",
+                    "description": "要查询的日期，格式 'YYYY-MM-DD'。关键：如果需要获取最新可用数据，请直接将此参数设置为字符串 'latest'。"
+                },
+                "market": {
+                    "type": "string",
+                    "description": "股票所属市场。",
+                    "enum": [
+                        "a",
+                        "hk",
+                        "us"
+                    ]
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型，计算涨跌幅时建议使用'qfq'。默认为'qfq'。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的标准代码。'code' 和 'name' 至少需要提供一个。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的名称。'code' 和 'name' 至少需要提供一个。"
+                }
+            },
+            "required": [
+                "query_date",
+                "market"
+            ]
+        }
+    },
+    "calculate_price_change_pct_in_period": {
+        "type": "function",
+        "function": {
+            "name": "calculate_price_change_pct_in_period",
+            "description": "【分类路径: 个体实体 > 股票 > 衍生/计算】计算单只股票在【指定时间段内】的累计涨跌幅（百分比）。函数会自动查找此时间段内的第一个和最后一个实际交易日的数据进行计算。",
+            "parameters": {
+                "start_date": {
+                    "type": "string",
+                    "description": "查询区间的开始日期 (格式: YYYY-MM-DD)"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询区间的结束日期 (格式: YYYY-MM-DD)，必须晚于开始日期"
+                },
+                "market": {
+                    "type": "string",
+                    "description": "股票所属市场。有效选项: 'a' (A股), 'hk' (港股), 'us' (美股)",
+                    "enum": [
+                        "a",
+                        "hk",
+                        "us"
+                    ]
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。有效选项: 'qfq' (前复权), 'hfq' (后复权), '' (不复权)。默认为 'qfq'",
+                    "enum": [
+                        "qfq",
+                        "hfq",
+                        ""
+                    ],
+                    "default": "qfq"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "股票的名称。'code' 和 'name' 至少需要提供一个"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "股票的代码。'code' 和 'name' 至少需要提供一个"
+                }
+            },
+            "required": [
+                "start_date",
+                "end_date",
+                "market"
+            ]
+        }
+    },
+    "calculate_index_change_pct_in_period": {
+        "type": "function",
+        "function": {
+            "name": "calculate_index_change_pct_in_period",
+            "description": "【分类路径: 个体实体 > 指数 > 衍生/计算】计算单个指数在指定时间段内的累计涨跌幅（百分比）。函数会自动查找此时间段内的第一个和最后一个实际交易日的收盘价进行计算。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "identifier": {
+                        "type": "STRING",
+                        "description": "要查询的指数名称或代码。例如：'沪深300', '恒生指数', '纳斯达克'。"
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "查询周期的开始日期，格式为 'YYYY-MM-DD'。例如：'2023-01-01'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "查询周期的结束日期，格式为 'YYYY-MM-DD'。例如：'2023-12-31'。"
+                    },
+                    "market": {
+                        "type": "STRING",
+                        "description": "(可选) 提供市场提示以帮助更精确地识别指数。有效值为 'a' (A股), 'hk' (港股), 'us' (美股)。"
+                    }
+                },
+                "required": [
+                    "identifier",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "analyze_index_performance": {
+        "type": "function",
+        "function": {
+            "name": "analyze_index_performance",
+            "description": "【高级分析工具】分析一个或多个指数在一段时间内的表现。此工具能计算每日涨跌幅，并根据涨跌幅和成交金额的阈值进行筛选，最终返回满足条件的天数。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "identifiers": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "需要分析的指数名称或代码的列表。例如：['沪深300']。"
+                    },
+                    "start_date": {
+                        "type": "STRING",
+                        "description": "分析周期的开始日期，格式 'YYYY-MM-DD'。"
+                    },
+                    "end_date": {
+                        "type": "STRING",
+                        "description": "分析周期的结束日期，格式 'YYYY-MM-DD'。"
+                    },
+                    "pct_change_threshold_percent": {
+                        "type": "NUMBER",
+                        "description": "(可选) 日涨跌幅的筛选阈值(%)。函数将统计涨跌幅大于此值的交易日。例如，要查找涨幅>1%的天数，请传入 1.0。"
+                    },
+                    "turnover_threshold_yuan": {
+                        "type": "NUMBER",
+                        "description": "(可选) 日成交金额的筛选阈值(元)。**重要提示：此筛选条件仅对美股指数（如纳斯达克）有效。A股和港股指数通常不提供成交金额数据，对此类指数使用此参数将导致分析失败。** 例如，要查找成交金额>5000亿元的天数，请传入 500000000000.0。"
+                    }
+                },
+                "required": [
+                    "identifiers",
+                    "start_date",
+                    "end_date"
+                ]
+            }
+        }
+    },
+    "calculate_index_change_pct": {
+        "type": "function",
+        "function": {
+            "name": "calculate_index_change_pct",
+            "description": "【分类路径: 个体实体 > 指数 > 衍生/计算】查询指数的【实时】涨跌幅。对于A股、港股和全球指数，会直接从本地文件读取，速度很快。对于美股，则会通过网络API获取最新两个交易日的数据进行计算。",
+            "parameters": {
+                "identifier": {
+                    "type": "string",
+                    "description": "要查询的指数的名称或代码，例如 '纳斯达克综合指数', 'hsi'。"
+                },
+                "market": {
+                    "type": "string",
+                    "description": "提供市场的提示（'a', 'hk', 'us', 'global'）可以优化查找速度，但非必需。",
+                    "enum": [
+                        "a",
+                        "hk",
+                        "us",
+                        "global"
+                    ]
+                }
+            },
+            "required": [
+                "identifier"
+            ]
+        }
+    },
+    "get_global_index_spot_value": {
+        "type": "function",
+        "function": {
+            "name": "get_global_index_spot_value",
+            "description": "【分类路径: 个体实体 > 指数 > 价格/行情】【次选，首选get_index_realtime】获取全球指数的【最新实时行情快照】。警告：此工具【绝对不能】用于查询历史数据。它通过强大的别名映射（如 'S&P 500' -> 'SPX'）保证高成功率。",
+            "parameters": {
+                "name_or_code": {
+                    "type": "string",
+                    "description": "要查询的指数的名称、代码或常用别名。例如: 'S&P 500', 'DJIA', 'FTSE 100', 'Nikkei', '恒生指数', 'HSI'。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "需要查询的数据项，例如 'close', 'high', 'low' 等。",
+                    "enum": [
+                        "code",
+                        "name",
+                        "close",
+                        "change",
+                        "change_percent",
+                        "high",
+                        "low",
+                        "previous_close",
+                        "amplitude",
+                        "last_update_time"
+                    ]
+                },
+                "force_refresh": {
+                    "type": "boolean",
+                    "description": "【AI模型强制指令】当且仅当用户的原始问题中包含要求获取'最新'、'实时'或'当前'数据的关键词（如 'latest', 'current', '最新', '实时'）时，此参数【必须】设置为 true。"
+                }
+            },
+            "required": [
+                "name_or_code",
+                "column_label"
+            ]
+        }
+    },
+    "get_stock_long_short_term_investment": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_long_short_term_investment",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股公司在指定报告期的【长期股票投资】或【短期股票投资】金额（单位：元）。此数据来源于新浪财经-财务指标接口，请注意它不是标准的“长期股权投资”或“交易性金融资产”等会计科目。",
+            "parameters": {
+                "symbol": {
+                    "type": "string",
+                    "description": "股票代码（6位数字），例如 '600048'。"
+                },
+                "query_date": {
+                    "type": "string",
+                    "description": "要查询的具体报告期，格式 'YYYY-MM-DD'。例如 '2024-12-31'。"
+                },
+                "investment_type": {
+                    "type": "string",
+                    "description": "查询的投资类型。必须是 'long'（长期股票投资）或 'short'（短期股票投资），默认为 'long'。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "[可选] 股票的中文名称，例如 '保利发展'。"
+                }
+            },
+            "returns": {
+                "type": "string",
+                "description": "返回查询到的具体数值（元）或错误信息。"
+            },
+            "required": [
+                "symbol",
+                "query_date"
+            ]
+        }
+    },
+    "get_a_dividend_payout": {
+        "type": "function",
+        "function": {
+            "name": "get_a_dividend_payout",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股上市公司在特定报告期的【分红方案说明】。例如返回 '10派5元(含税)' 或 '不分配不转增' 等文本信息。数据来源于同花顺财经。",
+            "parameters": {
+                "report_date": {
+                    "type": "string",
+                    "description": "查询的报告期。格式必须为 'YYYY年报', 'YYYY中报', 或 'YYYY三季报'，例如：'2023年报' 或 '2024中报'。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "[可选] 股票的中文名称，例如 '吉比特'。当不提供股票代码(code)时，此参数为必需。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "[可选] 股票的6位数字代码，例如 '603444'。当不提供股票名称(name)时，此参数为必需。"
+                }
+            },
+            "returns": {
+                "type": "string",
+                "description": "返回查询到的'分红方案说明'文本内容。如果查询失败或当期无分红方案，则返回None或错误信息。"
+            },
+            "required": [
+                "report_date"
+            ]
+        }
+    },
+    "get_net_profit_attributable": {
+        "type": "function",
+        "function": {
+            "name": "get_net_profit_attributable",
+            "description": "【分类路径: 个体实体 > 股票 > 财报/基本面】查询A股上市公司在特定报告期的【归母净利润】（单位：元）。数据来源于新浪财经-财务报表-关键指标。",
+            "parameters": {
+                "date": {
+                    "type": "string",
+                    "description": "要查询的具体报告期，格式必须为 'YYYY-MM-DD'。例如 '2022-09-30'。"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "[可选] 股票的中文名称，例如 '白云机场'。当不提供股票代码(code)时，此参数为必需。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "[可选] 股票的6位数字代码，例如 '600004'。当不提供股票名称(name)时，此参数为必需。"
+                }
+            },
+            "returns": {
+                "type": "number",
+                "description": "返回查询到的归母净利润具体数值（单位：元）。如果查询失败或数据不存在，则返回None。"
+            },
+            "required": [
+                "date"
+            ]
+        }
+    },
+    "get_foreign_futures_realtime": {
+        "type": "function",
+        "function": {
+            "name": "get_foreign_futures_realtime",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 价格/行情】【国际期货/实时专用】获取国际大宗商品（如WTI原油, COMEX黄金）的【当前最新实时行情】。",
+            "parameters": {
+                "commodity_name": {
+                    "type": "string",
+                    "description": "要查询的国际期货品种的名称或代码。函数能自动识别多种格式，例如: 'WTI Crude Oil', 'CL', 'COMEX Gold', 'GC', 'Brent', 'Silver'。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "需要查询的数据项，例如 'close', 'high', 'low' 等。",
+                    "enum": [
+                        "name",
+                        "close",
+                        "price_cny",
+                        "change",
+                        "change_percent",
+                        "open",
+                        "high",
+                        "low",
+                        "previous_settle",
+                        "open_interest",
+                        "bid",
+                        "ask",
+                        "time",
+                        "date"
+                    ]
+                }
+            },
+            "required": [
+                "commodity_name",
+                "column_label"
+            ]
+        }
+    },
+    "get_sge_daily_data": {
+        "type": "function",
+        "function": {
+            "name": "get_sge_daily_data",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 价格/行情】查询上海黄金交易所(SGE)官方报告中，指定商品在特定日期的行情数据。能够处理'latest'关键词以获取最新交易日信息。返回一个包含数值和日期的字符串。",
+            "parameters": {
+                "product_name": {
+                    "type": "string",
+                    "description": "要查询的上海黄金交易所官方商品名称。例如: 'Au(T+D)', 'Ag(T+D)', 'Au99.99'。"
+                },
+                "query_date": {
+                    "type": "string",
+                    "description": "查询的日期。支持 'YYYY-MM-DD' 格式，或使用 'latest' 等关键词获取最近数据。"
+                },
+                "column_label": {
+                    "type": "string",
+                    "description": "需要查询的数据项的官方中文列名。",
+                    "enum": [
+                        "开盘价",
+                        "最高价",
+                        "最低价",
+                        "收盘价",
+                        "涨跌",
+                        "涨跌幅",
+                        "加权平均价",
+                        "成交量",
+                        "成交金额",
+                        "持仓量",
+                        "交收方向",
+                        "交收量"
+                    ]
+                }
+            },
+            "required": [
+                "product_name",
+                "query_date",
+                "column_label"
+            ]
+        }
+    },
+    "calculate_stock_price_range_in_period": {
+        "type": "function",
+        "function": {
+            "name": "calculate_stock_price_range_in_period",
+            "description": "【分类路径: 个体实体 > 股票 > 衍生/计算】计算A股某只股票在【指定时间段内】（非复权、前复权或后复权）的最高价与最低价之差。",
+            "parameters": {
+                "start_date": {
+                    "type": "string",
+                    "description": "查询周期的开始日期，格式必须是 'YYYY-MM-DD'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询周期的结束日期，格式必须是 'YYYY-MM-DD'。"
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' 表示不复权，'qfq' 表示前复权，'hfq' 表示后复权。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "[可选] 股票的中文名称，例如 '中国平安'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "[可选] 股票的官方代码，例如 'sh601318'。"
+                }
+            },
+            "required": [
+                "start_date",
+                "end_date",
+                "adjust"
+            ]
+        }
+    },
+    "calculate_a_stock_change_pct_in_period": {
+        "type": "function",
+        "function": {
+            "name": "calculate_a_stock_change_pct_in_period",
+            "description": "【分类路径: 个体实体 > 股票 > 衍生/计算】计算A股某只股票在【指定时间段内】的累计涨跌幅（百分比）。函数会自动定位该时间段内的第一个和最后一个实际交易日来进行计算。",
+            "parameters": {
+                "start_date": {
+                    "type": "string",
+                    "description": "查询周期的开始日期，格式必须是 'YYYY-MM-DD'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询周期的结束日期，格式必须是 'YYYY-MM-DD'。"
+                },
+                "adjust": {
+                    "type": "string",
+                    "description": "复权类型。'' 表示不复权，'qfq' 表示前复权，'hfq' 表示后复权。",
+                    "enum": [
+                        "",
+                        "qfq",
+                        "hfq"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "description": "[可选] 股票的中文名称，例如 '贵州茅台'。"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "[可选] 股票的官方代码，【必须包含市场前缀】。上证股票以'sh'开头，深证股票以'sz'开头。例如：'sh600519' (贵州茅台), 'sz002216' (三全食品)。如果提供代码，则无需提供名称。"
+                }
+            },
+            "required": [
+                "start_date",
+                "end_date",
+                "adjust"
+            ]
+        }
+    },
+    "get_a_stock_market_cap_top_n": {
+        "type": "function",
+        "function": {
+            "name": "get_a_stock_market_cap_top_n",
+            "description": "【分类路径: 市场/宏观 > 股票 > 排行/列表】获取A股指定板块按市值排名前N的股票列表及其市值。可以选择性地包含最新的开盘价和收盘价。",
+            "parameters": {
+                "market": {
+                    "type": "string",
+                    "description": "要查询的市场板块。",
+                    "enum": [
+                        "all",
+                        "sh",
+                        "sz",
+                        "bj"
+                    ]
+                },
+                "n": {
+                    "type": "integer",
+                    "description": "要返回的排名前几的数量。"
+                },
+                "cap_type": {
+                    "type": "string",
+                    "description": "用于排名的市值类型。",
+                    "enum": [
+                        "total",
+                        "circulating"
+                    ]
+                },
+                "include_prices": {
+                    "type": "boolean",
+                    "description": "[可选] 是否在结果中包含最新价和开盘价。默认为 False。",
+                    "default": "false"
+                }
+            },
+            "required": [
+                "market",
+                "n",
+                "cap_type"
+            ]
+        }
+    },
+    "get_sge_benchmark_price": {
+        "type": "function",
+        "function": {
+            "name": "get_sge_benchmark_price",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 价格/行情】查询上海黄金交易所(SGE)发布的'上海金'或'上海银'的官方基准价。可以指定查询早盘(午盘)或晚盘的价格，并支持查询特定历史日期或最新的价格。",
+            "parameters": {
+                "metal": {
+                    "type": "string",
+                    "description": "要查询的贵金属品种。",
+                    "enum": [
+                        "gold",
+                        "silver"
+                    ]
+                },
+                "session": {
+                    "type": "string",
+                    "description": "要查询的盘口(交易时段)。'morning'代表早盘，在口语中也常被称为'午盘'。",
+                    "enum": [
+                        "morning",
+                        "evening"
+                    ]
+                },
+                "query_date": {
+                    "type": "string",
+                    "description": "[可选] 要查询的日期，格式为 'YYYY-MM-DD'。如果省略或设为 'latest'，则自动查询最新的有效交易日数据。",
+                    "default": "latest"
+                }
+            },
+            "required": [
+                "metal",
+                "session"
+            ]
+        }
+    },
+    "calculate_futures_spread": {
+        "type": "function",
+        "function": {
+            "name": "calculate_futures_spread",
+            "description": "【分类路径: 个体实体 > 期货/商品 > 衍生/计算】计算两种期货合约（例如 玉米 和 玉米淀粉）在指定时间段内基于收盘价的每日价差，并直接返回价差的最大值、最小值及其对应的日期。",
+            "parameters": {
+                "symbol1": {
+                    "type": "string",
+                    "description": "第一个期货合约的代码，将作为被减数。例如 'c2407' (玉米)。"
+                },
+                "symbol2": {
+                    "type": "string",
+                    "description": "第二个期货合约的代码，将作为减数。例如 'cs2407' (玉米淀粉)。价差将以 'symbol2 - symbol1' 计算。"
+                },
+                "start_date": {
+                    "type": "string",
+                    "description": "查询周期的开始日期，格式为 'YYYYMMDD'。"
+                },
+                "end_date": {
+                    "type": "string",
+                    "description": "查询周期的结束日期，格式为 'YYYYMMDD'。"
+                }
+            },
+            "required": [
+                "symbol1",
+                "symbol2",
+                "start_date",
+                "end_date"
+            ]
+        }
+    },
+    "get_china_population_nbs": {
+        "type": "function",
+        "function": {
+            "name": "get_china_population_nbs",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 社会统计】从国家统计局(NBS)查询中国的年度人口数据，包括总人口、按性别分（男性/女性）、按城乡分（城镇/乡村）的人口数量。",
+            "parameters": {
+                "population_metric": {
+                    "type": "string",
+                    "description": "要查询的具体人口指标类型。",
+                    "enum": [
+                        "total",
+                        "male",
+                        "female",
+                        "urban",
+                        "rural"
+                    ]
+                },
+                "query_year": {
+                    "type": "string",
+                    "description": "[可选] 要查询的年份，格式为 'YYYY' (例如 '2022')。如果省略或设为 'latest'，则自动查询可获得的最新年份数据。",
+                    "default": "latest"
+                }
+            },
+            "required": [
+                "population_metric"
+            ]
+        }
+    },
+    "calculate_bond_yield_change_on_date": {
+        "type": "function",
+        "function": {
+            "name": "calculate_bond_yield_change_on_date",
+            "description": "【分类路径：市场/宏观 > 中债国债 > 衍生/计算】【分析工具】计算并统计在【某一个指定日期】或【其后的首个交易日】，特定债券收益率曲线上多个期限的收益率，及其相比【上一交易日】的变化幅度。变化幅度以【基点(BP)】为单位。",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "target_date": {
+                        "type": "STRING",
+                        "description": "要查询和计算变化的目标日期，格式为 'YYYY-MM-DD'。例如：'2023-09-15'。"
+                    },
+                    "curve_name": {
+                        "type": "STRING",
+                        "description": "(可选) 要查询的曲线名称。默认为'中债国债收益率曲线'。其他例子：'中债商业银行普通债收益率曲线(AAA)'。"
+                    },
+                    "terms": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "STRING"
+                        },
+                        "description": "(可选) 指定一个或多个需要分析的债券期限。**如果此参数未提供，函数将自动分析所有可用的期限**（如 '3月', '6月', '1年', '3年', '5年', '7年', '10年', '30年'）。"
+                    }
+                },
+                "required": [
+                    "target_date"
+                ]
+            }
+        }
+    },
+    "get_china_car_sales_cpca": {
+        "type": "function",
+        "function": {
+            "name": "get_china_car_sales_cpca",
+            "description": "【分类路径: 市场/宏观 > 宏观经济 > 行业统计】从乘联会(CPCA)获取中国汽车市场指定月份的销量、产量等数据。可用于查询新能源汽车或广义/狭义乘用车的月度数据。",
+            "parameters": {
+                "market_type": {
+                    "type": "string",
+                    "description": "要查询的市场大类。",
+                    "enum": [
+                        "new_energy_vehicle",
+                        "passenger_car",
+                        "commercial_vehicle"
+                    ]
+                },
+                "metric_type": {
+                    "type": "string",
+                    "description": "要查询的具体指标类型。注意：新能源汽车(new_energy_vehicle)只支持'sales'。",
+                    "enum": [
+                        "sales",
+                        "production",
+                        "wholesale",
+                        "export"
+                    ]
+                },
+                "query_month": {
+                    "type": "string",
+                    "description": "要查询的月份，例如 '1月', '3月', '12月'。"
+                },
+                "query_year": {
+                    "type": "integer",
+                    "description": "[可选] 要查询的年份，格式为YYYY，例如 2024。如果省略，则自动查询最新的可用年份。"
+                }
+            },
+            "required": [
+                "market_type",
+                "metric_type",
+                "query_month"
+            ]
+        }
+    }
+}
