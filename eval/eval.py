@@ -18,11 +18,10 @@ except ImportError:
     print("未找到 'vllm' 库。")
     print("请先安装 vLLM: pip install vllm")
     sys.exit(1)
-sys.path.insert(0, 'data')
 try:
-    from tool_library import *
+    from data.tool_library import *
 except ImportError:
-    print("找不到 tools_ours, 请确保您在 'finbench' 根目录下运行")
+    print("找不到 tool_library, 请确保您在 'finbench' 根目录下运行")
     sys.exit(1)
 # ==========================================================
 # 1. 配置
