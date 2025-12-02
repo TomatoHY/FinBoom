@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+eval/log/
+eval/output/
+
+# Environment
+.env
+.venv
+env/
+venv/
+
+# Data files (large)
+*.pkl
+local_data_archive.pkl
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+

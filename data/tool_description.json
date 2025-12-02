@@ -43,7 +43,15 @@
                 "date",
                 "row_label",
                 "column_label"
-            ]
+            ],
+            "category": "市场/宏观 > 股票",
+            "category_path": [
+                "市场/宏观",
+                "股票"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "股票",
+            "category_level3": ""
         }
     },
     "get_stock_individual_basic_info_xq_value": {
@@ -96,7 +104,16 @@
             },
             "required": [
                 "row_label"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "get_code_from_name": {
@@ -123,7 +140,16 @@
             },
             "required": [
                 "name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "get_stock_hist_price_data": {
@@ -177,7 +203,16 @@
                 "start_date",
                 "end_date",
                 "adjust"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "get_stock_hist_price_data_tx": {
@@ -221,7 +256,16 @@
                 "start_date",
                 "end_date",
                 "adjust"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "get_fx_spot_quote_value": {
@@ -246,7 +290,15 @@
             "required": [
                 "currency_pair",
                 "metric_name"
-            ]
+            ],
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_monthly_avg_currency_rate": {
@@ -275,7 +327,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_rmb_central_parity_rate_change": {
@@ -307,7 +367,15 @@
                     "end_date",
                     "currencies"
                 ]
-            }
+            },
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_current_latest_value": {
@@ -342,7 +410,15 @@
                 "base",
                 "currency",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_currency_history_value": {
@@ -378,7 +454,15 @@
                 "date",
                 "currency",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "convert_currency_amount": {
@@ -404,7 +488,15 @@
                 "base_currency",
                 "target_currency",
                 "amount"
-            ]
+            ],
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_stock_listing_date": {
@@ -424,7 +516,16 @@
                         "description": "(可选) 股票的代码。例如：'600519' 或 '000002'。name 和 code 至少需要提供一个。"
                     }
                 }
-            }
+            },
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "get_stock_basic_info": {
@@ -445,7 +546,16 @@
             "required": [
                 "symbol",
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "get_stock_basic_info_a": {
@@ -477,7 +587,16 @@
             "required": [
                 "symbol",
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "get_hk_stock_basic_info": {
@@ -523,7 +642,16 @@
             },
             "required": [
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "get_hk_stock_daily_price": {
@@ -568,7 +696,16 @@
             "required": [
                 "query_date",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "calculate_futures_minute_spread": {
@@ -658,7 +795,15 @@
             "required": [
                 "symbol1",
                 "symbol2"
-            ]
+            ],
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "get_stock_comment": {
@@ -693,7 +838,16 @@
             },
             "required": [
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
         }
     },
     "get_balance_sheet": {
@@ -735,7 +889,16 @@
             "required": [
                 "date",
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_income_statement": {
@@ -777,7 +940,16 @@
             "required": [
                 "date",
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_earnings_report_summary": {
@@ -819,7 +991,16 @@
             "required": [
                 "date",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_financial_indicators": {
@@ -868,7 +1049,16 @@
             "required": [
                 "report_date",
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_top_10_shareholders": {
@@ -889,7 +1079,16 @@
             "required": [
                 "date",
                 "stock_code"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
         }
     },
     "get_dividend_allotment_history": {
@@ -928,7 +1127,16 @@
             "required": [
                 "report_period",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_stock_consensus_forecast": {
@@ -975,7 +1183,16 @@
                 "metric",
                 "value_type",
                 "year"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
         }
     },
     "get_stock_detailed_metric_forecast": {
@@ -1018,7 +1235,16 @@
             "required": [
                 "metric_name",
                 "year"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
         }
     },
     "get_earnings_announcement": {
@@ -1057,7 +1283,16 @@
             "required": [
                 "report_date",
                 "item_name"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_nbs_region_data": {
@@ -1108,7 +1343,15 @@
                 "kind",
                 "path",
                 "period"
-            ]
+            ],
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_gold_forex_reserves": {
@@ -1141,7 +1384,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_stock_map_by_market": {
@@ -1174,7 +1425,15 @@
                 "required": [
                     "market"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 股票",
+            "category_path": [
+                "市场/宏观",
+                "股票"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "股票",
+            "category_level3": ""
         }
     },
     "get_us_stock_map_by_exchange": {
@@ -1202,7 +1461,16 @@
                 "required": [
                     "exchange_name"
                 ]
-            }
+            },
+            "category": "个体实体 > 股票 > 档案/静态信息",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "档案/静态信息"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "档案/静态信息"
         }
     },
     "calculate_gold_forex_change": {
@@ -1226,7 +1494,16 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "get_lpr_rate": {
@@ -1261,7 +1538,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_lpr_rate_on_date": {
@@ -1291,7 +1576,15 @@
                     "indicator_name",
                     "query_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "calculate_lpr_rate_change": {
@@ -1326,7 +1619,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_china_macro_pro": {
@@ -1357,7 +1658,15 @@
             },
             "required": [
                 "indicator_name"
-            ]
+            ],
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_ppi_yearly_by_quarters": {
@@ -1379,7 +1688,15 @@
                 "required": [
                     "quarters"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_ppi_rate_on_date": {
@@ -1398,7 +1715,15 @@
                 "required": [
                     "query_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_m2_supply_rate": {
@@ -1422,7 +1747,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "calculate_m2_supply_rate_change": {
@@ -1446,7 +1779,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_futures_daily_price": {
@@ -1471,7 +1812,16 @@
             "required": [
                 "symbol",
                 "start_date"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "get_futures_price_on_date": {
@@ -1495,7 +1845,15 @@
                     "symbol",
                     "query_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "get_futures_history": {
@@ -1531,7 +1889,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "get_gold_forex_reserves_on_date": {
@@ -1559,7 +1925,15 @@
                     "indicator_name",
                     "query_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_m2_supply_rate_on_date": {
@@ -1578,7 +1952,15 @@
                 "required": [
                     "query_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_currency_rate_on_date": {
@@ -1602,7 +1984,15 @@
                     "currency_name",
                     "query_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_forex_price_on_date": {
@@ -1626,7 +2016,15 @@
                     "symbol",
                     "query_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 外汇",
+            "category_path": [
+                "个体实体",
+                "外汇"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "外汇",
+            "category_level3": ""
         }
     },
     "get_us_stock_daily_price": {
@@ -1676,7 +2074,16 @@
                 "query_date",
                 "column_label",
                 "adjust"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "get_a_stock_daily_price": {
@@ -1722,7 +2129,16 @@
                 "query_date",
                 "column_label",
                 "adjust"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "get_multiple_index_history_df": {
@@ -1761,7 +2177,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "get_stocks_history_dataframe": {
@@ -1801,7 +2225,16 @@
                 "codes",
                 "start_date",
                 "end_date"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 价格/行情",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "价格/行情"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "价格/行情"
         }
     },
     "get_stocks_gain_ranking_dataframe": {
@@ -1840,7 +2273,15 @@
                 "codes",
                 "start_date",
                 "end_date"
-            ]
+            ],
+            "category": "市场/宏观 > 股票",
+            "category_path": [
+                "市场/宏观",
+                "股票"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "股票",
+            "category_level3": ""
         }
     },
     "get_index_components": {
@@ -1864,7 +2305,15 @@
                 "required": [
                     "symbol"
                 ]
-            }
+            },
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "get_index_stock_info": {
@@ -1892,7 +2341,15 @@
                     "index_name",
                     "info_type"
                 ]
-            }
+            },
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "get_indices_gain_ranking_dataframe": {
@@ -1924,26 +2381,43 @@
                     "start_date",
                     "end_date"
                 ]
-            }
-        },
-        "python_interpreter": {
-            "type": "function",
-            "function": {
-                "name": "python_interpreter",
-                "description": "【分类路径：外部工具 > interpreter > python】【数据处理和计算】当您已经通过其他工具获取了原始数据（特别是DataFrame），但需要进行复杂的计算、排序、筛选、聚合或格式化时，请使用此工具。它可以执行Pandas代码来处理数据并得出最终答案。",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "code": {
-                            "type": "string",
-                            "description": "一段有效的Python代码字符串。代码可以访问 pandas 库 (别名为 pd)。代码的最后一行必须是一个可以返回结果的表达式。"
-                        }
-                    },
-                    "required": [
-                        "code"
-                    ]
-                }
-            }
+            },
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
+        }
+    },
+    "python_interpreter": {
+        "type": "function",
+        "function": {
+            "name": "python_interpreter",
+            "description": "【分类路径：外部工具 > interpreter > python】【数据处理和计算】当您已经通过其他工具获取了原始数据（特别是DataFrame），但需要进行复杂的计算、排序、筛选、聚合或格式化时，请使用此工具。它可以执行Pandas代码来处理数据并得出最终答案。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "一段有效的Python代码字符串。代码可以访问 pandas 库 (别名为 pd)。代码的最后一行必须是一个可以返回结果的表达式。"
+                    }
+                },
+                "required": [
+                    "code"
+                ]
+            },
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "get_index_realtime": {
@@ -1987,7 +2461,15 @@
             "required": [
                 "identifier",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "get_index_history": {
@@ -2034,7 +2516,15 @@
                 "identifier",
                 "query_date",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "calculate_price_change_pct": {
@@ -2077,7 +2567,16 @@
             "required": [
                 "query_date",
                 "market"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "calculate_price_change_pct_in_period": {
@@ -2126,7 +2625,16 @@
                 "start_date",
                 "end_date",
                 "market"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "calculate_index_change_pct_in_period": {
@@ -2159,7 +2667,16 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "analyze_index_performance": {
@@ -2199,7 +2716,15 @@
                     "start_date",
                     "end_date"
                 ]
-            }
+            },
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "calculate_index_change_pct": {
@@ -2225,7 +2750,16 @@
             },
             "required": [
                 "identifier"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "get_global_index_spot_value": {
@@ -2262,7 +2796,15 @@
             "required": [
                 "name_or_code",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 指数",
+            "category_path": [
+                "个体实体",
+                "指数"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "指数",
+            "category_level3": ""
         }
     },
     "get_stock_long_short_term_investment": {
@@ -2295,7 +2837,16 @@
             "required": [
                 "symbol",
                 "query_date"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_a_dividend_payout": {
@@ -2323,7 +2874,16 @@
             },
             "required": [
                 "report_date"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_net_profit_attributable": {
@@ -2351,7 +2911,16 @@
             },
             "required": [
                 "date"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 财报/基本面",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "财报/基本面"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "财报/基本面"
         }
     },
     "get_foreign_futures_realtime": {
@@ -2388,7 +2957,15 @@
             "required": [
                 "commodity_name",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "get_sge_daily_data": {
@@ -2428,7 +3005,15 @@
                 "product_name",
                 "query_date",
                 "column_label"
-            ]
+            ],
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "calculate_stock_price_range_in_period": {
@@ -2467,7 +3052,16 @@
                 "start_date",
                 "end_date",
                 "adjust"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "calculate_a_stock_change_pct_in_period": {
@@ -2506,7 +3100,16 @@
                 "start_date",
                 "end_date",
                 "adjust"
-            ]
+            ],
+            "category": "个体实体 > 股票 > 衍生/计算",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "衍生/计算"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "衍生/计算"
         }
     },
     "get_a_stock_market_cap_top_n": {
@@ -2547,7 +3150,15 @@
                 "market",
                 "n",
                 "cap_type"
-            ]
+            ],
+            "category": "市场/宏观 > 股票",
+            "category_path": [
+                "市场/宏观",
+                "股票"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "股票",
+            "category_level3": ""
         }
     },
     "get_sge_benchmark_price": {
@@ -2581,7 +3192,15 @@
             "required": [
                 "metal",
                 "session"
-            ]
+            ],
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "calculate_futures_spread": {
@@ -2612,7 +3231,15 @@
                 "symbol2",
                 "start_date",
                 "end_date"
-            ]
+            ],
+            "category": "个体实体 > 期货/商品",
+            "category_path": [
+                "个体实体",
+                "期货/商品"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "期货/商品",
+            "category_level3": ""
         }
     },
     "get_china_population_nbs": {
@@ -2640,7 +3267,15 @@
             },
             "required": [
                 "population_metric"
-            ]
+            ],
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "calculate_bond_yield_change_on_date": {
@@ -2670,7 +3305,15 @@
                 "required": [
                     "target_date"
                 ]
-            }
+            },
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
         }
     },
     "get_china_car_sales_cpca": {
@@ -2711,7 +3354,117 @@
                 "market_type",
                 "metric_type",
                 "query_month"
-            ]
+            ],
+            "category": "市场/宏观 > 宏观经济",
+            "category_path": [
+                "市场/宏观",
+                "宏观经济"
+            ],
+            "category_level1": "市场/宏观",
+            "category_level2": "宏观经济",
+            "category_level3": ""
+        }
+    },
+    "get_stock_board_industry_list": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_board_industry_list",
+            "description": "【分类路径: 市场/宏观 > 板块/行业 > 板块列表】获取东方财富-行业板块的所有板块列表。返回包含板块代码和名称的DataFrame，可用于获取所有可用的行业板块信息，以便后续查询板块成份股。",
+            "parameters": {},
+            "returns": {
+                "type": "object",
+                "description": "返回包含板块信息的DataFrame，包含板块代码和名称等字段。如果获取失败，返回错误信息字符串。"
+            },
+            "required": [],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
+        }
+    },
+    "get_stock_board_industry_cons": {
+        "type": "function",
+        "function": {
+            "name": "get_stock_board_industry_cons",
+            "description": "【分类路径: 市场/宏观 > 板块/行业 > 板块成份股】获取东方财富-行业板块的成份股数据。返回指定板块的所有成份股信息，包括股票代码、名称、最新价、涨跌幅、成交量、成交额、振幅、市盈率、市净率等。可用于分析板块内所有股票的表现。",
+            "parameters": {
+                "symbol": {
+                    "type": "string",
+                    "description": "板块名称（如'小金属'、'新能源'、'银行'）或板块代码（如'BK1027'）。可以通过 get_stock_board_industry_list() 获取所有可用的板块名称和代码。"
+                }
+            },
+            "returns": {
+                "type": "object",
+                "description": "返回包含板块成份股数据的DataFrame，包含：代码、名称、最新价、涨跌幅、涨跌额、成交量、成交额、振幅、最高、最低、今开、昨收、换手率、市盈率-动态、市净率等字段。如果获取失败，返回错误信息字符串。"
+            },
+            "required": [
+                "symbol"
+            ],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
+        }
+    },
+    "get_sw_index_third_info": {
+        "type": "function",
+        "function": {
+            "name": "get_sw_index_third_info",
+            "description": "【分类路径: 市场/宏观 > 板块/行业 > 申万行业分类】获取申万三级行业信息。返回所有申万三级行业的列表，包括行业代码、行业名称、上级行业、成份个数、静态市盈率、TTM(滚动)市盈率、市净率、静态股息率等。可用于获取申万行业分类体系中的所有三级行业。",
+            "parameters": {},
+            "returns": {
+                "type": "object",
+                "description": "返回包含申万三级行业信息的DataFrame，包含：行业代码、行业名称、上级行业、成份个数、静态市盈率、TTM(滚动)市盈率、市净率、静态股息率等字段。如果获取失败，返回错误信息字符串。"
+            },
+            "required": [],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
+        }
+    },
+    "get_sw_index_third_cons": {
+        "type": "function",
+        "function": {
+            "name": "get_sw_index_third_cons",
+            "description": "【分类路径: 市场/宏观 > 板块/行业 > 申万行业成份股】获取申万三级行业的成份股数据。返回指定申万三级行业的所有成份股信息，包括股票代码、股票简称、纳入时间、申万1/2/3级分类、价格、市盈率、市净率、股息率、市值、归母净利润同比增长、营业收入同比增长等。可用于分析申万行业分类下所有股票的表现。",
+            "parameters": {
+                "symbol": {
+                    "type": "string",
+                    "description": "申万三级行业代码（如'850111.SI'、'850113.SI'）。可以通过 get_sw_index_third_info() 获取所有可用的行业代码。"
+                }
+            },
+            "returns": {
+                "type": "object",
+                "description": "返回包含行业成份股数据的DataFrame，包含：股票代码、股票简称、纳入时间、申万1级、申万2级、申万3级、价格、市盈率、市盈率ttm、市净率、股息率、市值、归母净利润同比增长(09-30)、归母净利润同比增长(06-30)、营业收入同比增长(09-30)、营业收入同比增长(06-30)等字段。如果获取失败，返回错误信息字符串。"
+            },
+            "required": [
+                "symbol"
+            ],
+            "category": "个体实体 > 股票 > 分析/情绪/预测",
+            "category_path": [
+                "个体实体",
+                "股票",
+                "分析/情绪/预测"
+            ],
+            "category_level1": "个体实体",
+            "category_level2": "股票",
+            "category_level3": "分析/情绪/预测"
         }
     }
 }

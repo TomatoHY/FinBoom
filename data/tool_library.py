@@ -16,7 +16,8 @@ ts.set_token(TUSHARE_API_KEY)
 CURRENCY_API_KEY = "pLV2InhpWP5q7PuoqsEQPEvck3fJZHBu"
 _tushare_pro_api = None
 _last_tushare_call_time = datetime.min
-LOCAL_PICKLE_FILE = 'data/local_data_archive.pkl' 
+# 使用相对路径，相对于当前文件所在目录
+LOCAL_PICKLE_FILE = os.path.join(os.path.dirname(__file__), 'local_data_archive.pkl') 
 
 _stock_data_cache: Dict[str, Optional[pd.DataFrame]] = {}
 
@@ -4325,34 +4326,34 @@ def get_stocks_history_dataframe(
     print(f"--- [批量获取DataFrame v2] 完成！成功构建了包含 {len(final_df)} 条记录的 DataFrame。 ---")
     return final_df
 
-# def python_interpreter(code: str) -> Any:
-#     """
-#     执行一段 Python 代码字符串并返回其最终表达式的结果。
-#     代码可以访问 pandas 库 (别名为 pd) 以及已在此环境中定义的其他变量。
+def python_interpreter(code: str) -> Any:
+    """
+    执行一段 Python 代码字符串并返回其最终表达式的结果。
+    代码可以访问 pandas 库 (别名为 pd) 以及已在此环境中定义的其他变量。
     
-#     Args:
-#         code (str): 一段有效的 Python 代码字符串。为了返回值，代码的最后一行
-#                     必须是一个可以被 'eval()' 求值的表达式。
+    Args:
+        code (str): 一段有效的 Python 代码字符串。为了返回值，代码的最后一行
+                    必须是一个可以被 'eval()' 求值的表达式。
 
-#     Returns:
-#         Any: 代码最后一行表达式的执行结果。
-#     """
-#     print(f"--- [Python Interpreter] 正在执行以下代码 ---\n{code}\n---------------------------------------------")
-#     local_scope = {
-#         'pd': pd
-#     }
-#     try:
-#         lines = code.strip().split('\n')
-#         if len(lines) > 1:
-#             exec('\n'.join(lines[:-1]), globals(), local_scope)
-#         result = eval(lines[-1], globals(), local_scope)
-#         print(f"--- [Python Interpreter] 执行成功，返回类型: {type(result)} ---")
-#         return result
-#     except Exception as e:
-#         import traceback
-#         error_message = f"Python代码执行失败: {e}\n{traceback.format_exc()}"
-#         print(f"--- [Python Interpreter] {error_message} ---")
-#         return {"error": error_message}
+    Returns:
+        Any: 代码最后一行表达式的执行结果。
+    """
+    print(f"--- [Python Interpreter] 正在执行以下代码 ---\n{code}\n---------------------------------------------")
+    local_scope = {
+        'pd': pd
+    }
+    try:
+        lines = code.strip().split('\n')
+        if len(lines) > 1:
+            exec('\n'.join(lines[:-1]), globals(), local_scope)
+        result = eval(lines[-1], globals(), local_scope)
+        print(f"--- [Python Interpreter] 执行成功，返回类型: {type(result)} ---")
+        return result
+    except Exception as e:
+        import traceback
+        error_message = f"Python代码执行失败: {e}\n{traceback.format_exc()}"
+        print(f"--- [Python Interpreter] {error_message} ---")
+        return {"error": error_message}
 
 def get_stocks_gain_ranking_dataframe(
     codes: List[str],
@@ -6345,3 +6346,109 @@ def get_us_stock_map_by_exchange(
     except Exception as e:
         return f"错误: 筛选交易所 '{exchange_name}' 时出错: {e}"
     return "错误：未知的内部错误。"
+
+
+def get_stock_board_industry_list() -> Union[pd.DataFrame, str]:
+    """
+    获取东方财富-行业板块的所有板块列表
+    
+    Returns:
+        Union[pd.DataFrame, str]: 
+            - 成功: 返回包含板块代码和名称的DataFrame
+            - 失败: 返回错误信息字符串
+    """
+    print("--- 正在获取东方财富行业板块列表... ---")
+    try:
+        df = ak.stock_board_industry_name_em()
+        if df is None or df.empty:
+            return "错误: 未能获取板块列表数据。"
+        print(f"--- 成功获取 {len(df)} 个行业板块 ---")
+        return df
+    except Exception as e:
+        error_msg = f"错误: 获取行业板块列表时出错: {str(e)}"
+        print(f"  -> {error_msg}")
+        return error_msg
+
+
+def get_stock_board_industry_cons(symbol: str) -> Union[pd.DataFrame, str]:
+    """
+    获取东方财富-行业板块的成份股数据
+    
+    Args:
+        symbol (str): 板块名称（如"小金属"）或板块代码（如"BK1027"）
+    
+    Returns:
+        Union[pd.DataFrame, str]: 
+            - 成功: 返回包含板块成份股数据的DataFrame，包含：
+                - 代码、名称、最新价、涨跌幅、涨跌额、成交量、成交额
+                - 振幅、最高、最低、今开、昨收、换手率、市盈率-动态、市净率
+            - 失败: 返回错误信息字符串
+    """
+    print(f"--- 正在获取板块 '{symbol}' 的成份股数据... ---")
+    try:
+        df = ak.stock_board_industry_cons_em(symbol=symbol)
+        if df is None or df.empty:
+            return f"错误: 未能获取板块 '{symbol}' 的成份股数据（可能板块名称或代码不正确）。"
+        
+        # 确保列名标准化
+        if '代码' in df.columns:
+            df = df.rename(columns={'代码': 'code', '名称': 'name'})
+        
+        print(f"--- 成功获取板块 '{symbol}' 的 {len(df)} 只成份股 ---")
+        return df
+    except Exception as e:
+        error_msg = f"错误: 获取板块 '{symbol}' 成份股数据时出错: {str(e)}"
+        print(f"  -> {error_msg}")
+        return error_msg
+
+
+def get_sw_index_third_info() -> Union[pd.DataFrame, str]:
+    """
+    获取申万三级行业信息
+    
+    Returns:
+        Union[pd.DataFrame, str]: 
+            - 成功: 返回包含申万三级行业信息的DataFrame，包含：
+                - 行业代码、行业名称、上级行业、成份个数
+                - 静态市盈率、TTM(滚动)市盈率、市净率、静态股息率
+            - 失败: 返回错误信息字符串
+    """
+    print("--- 正在获取申万三级行业信息... ---")
+    try:
+        df = ak.sw_index_third_info()
+        if df is None or df.empty:
+            return "错误: 未能获取申万三级行业信息。"
+        print(f"--- 成功获取 {len(df)} 个申万三级行业 ---")
+        return df
+    except Exception as e:
+        error_msg = f"错误: 获取申万三级行业信息时出错: {str(e)}"
+        print(f"  -> {error_msg}")
+        return error_msg
+
+
+def get_sw_index_third_cons(symbol: str) -> Union[pd.DataFrame, str]:
+    """
+    获取申万三级行业的成份股数据
+    
+    Args:
+        symbol (str): 行业代码（如"850111.SI"），可以通过 get_sw_index_third_info() 获取
+    
+    Returns:
+        Union[pd.DataFrame, str]: 
+            - 成功: 返回包含行业成份股数据的DataFrame，包含：
+                - 股票代码、股票简称、纳入时间、申万1/2/3级分类
+                - 价格、市盈率、市盈率ttm、市净率、股息率、市值
+                - 归母净利润同比增长、营业收入同比增长等
+            - 失败: 返回错误信息字符串
+    """
+    print(f"--- 正在获取申万三级行业 '{symbol}' 的成份股数据... ---")
+    try:
+        df = ak.sw_index_third_cons(symbol=symbol)
+        if df is None or df.empty:
+            return f"错误: 未能获取行业 '{symbol}' 的成份股数据（可能行业代码不正确）。"
+        print(f"--- 成功获取行业 '{symbol}' 的 {len(df)} 只成份股 ---")
+        return df
+    except Exception as e:
+        error_msg = f"错误: 获取行业 '{symbol}' 成份股数据时出错: {str(e)}"
+        print(f"  -> {error_msg}")
+        return error_msg
