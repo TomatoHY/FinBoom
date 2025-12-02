@@ -5,7 +5,7 @@
 # 注意：不使用 set -e，因为我们需要等待所有后台进程
 
 # 配置
-DATASET_PATH="data/finboom_dataset_classified.json"
+DATASET_PATH="data/finboom_dataset.json"
 TOOL_TREE_PATH="data/tool_tree.json"
 TOOL_DESC_PATH="data/tool_description.json"
 OUTPUT_DIR="eval/output"
