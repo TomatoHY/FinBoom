@@ -57,7 +57,7 @@ except ImportError:
 # 1. 配置
 # ==========================================================
 def parse_args():
-    parser = argparse.ArgumentParser(description="运行 FinBench 评估")
+    parser = argparse.ArgumentParser(description="运行 FinBoom 评估")
     parser.add_argument(
         "--model-path", 
         type=str, 
