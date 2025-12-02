@@ -53,6 +53,73 @@ try:
 except ImportError:
     OPENAI_AVAILABLE = False
 
+# ==========================================================
+# 1. 配置
+# ==========================================================
+def parse_args():
+    parser = argparse.ArgumentParser(description="运行 FinBench 评估")
+    parser.add_argument(
+        "--model-path", 
+        type=str, 
+        required=True,
+        help="VLLM模型的本地或Hugging Face路径。"
+    )
+    parser.add_argument(
+        "--tensor-parallel-size", 
+        type=int, 
+        required=True,
+        help="模型跨越的GPU数量（张量并行大小）。"
+    )
+    parser.add_argument(
+        "--gpu-memory-utilization", 
+        type=float, 
+        required=True,
+        help="分配给模型的GPU内存百分比。"
+    )
+    parser.add_argument(
+        "--max-model-len",
+        type=int,
+        required=True,  
+        help="VLLM模型的最大上下文长度（max_model_len）。"
+    )
+    parser.add_argument(
+        "--max-tokens",
+        type=int,
+        required=True,
+        help="模型生成每个响应的最大token数（max_tokens）。"
+    )
+    parser.add_argument(
+        "--max-turns",
+        type=int,
+        required=True,
+        help="Agent 循环的最大推理轮次。"
+    )
+    parser.add_argument(
+        "--output-file-path", 
+        type=str, 
+        required=True,
+        help="评估结果的输出文件路径。"
+    )
+    parser.add_argument(
+        "--dataset-file-path", 
+        type=str, 
+        required=True, 
+        help="数据集路径。"
+        )
+    parser.add_argument(
+        "--tool-tree-path", 
+        type=str, 
+        required=True, 
+        help="工具树路径。"
+        )
+    parser.add_argument(
+        "--tool-desc-path", 
+        type=str, 
+        required=True, 
+        help="工具定义路径。"
+        )
+    return parser.parse_args()
+
 try:
     from anthropic import Anthropic
     ANTHROPIC_AVAILABLE = True
